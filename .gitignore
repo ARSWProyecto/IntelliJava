@@ -1,1 +1,4 @@
-/Intellivaja/target/
+/nbproject/
+/target/
+/**.bak
+/**.lock
