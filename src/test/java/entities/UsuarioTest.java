@@ -8,7 +8,7 @@ package entities;
 
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
 import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
-import edu.eci.arsw.nieddu.intellijava.entities.UsuarioException;
+import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -22,10 +22,10 @@ public class UsuarioTest {
     @Test
     public void deberiaTenerNombre() {
         try {
-            Usuario u = new Usuario(null, null);
+            Usuario u = new Usuario(null);
             Assert.fail("Dejo crear el usuario");
-        }catch(UsuarioException te){
-            Assert.assertEquals("La excepcion lanzada fue distinta",UsuarioException.USUARIO_SIN_NOMBRE, te.getMessage());
+        }catch(EntitiesException te){
+            Assert.assertEquals("La excepcion lanzada fue distinta",EntitiesException.USUARIO_SIN_NOMBRE, te.getMessage());
         }
     }
     
@@ -33,12 +33,13 @@ public class UsuarioTest {
     @Test
     public void noDeberiaPoderDelegarProyectoSinSerDuenno() {
         try {
-            Proyecto p = new Proyecto();
-            Usuario u = new Usuario("Kolmant", p);
-            u.delegarProyecto(new Usuario("poshito",p));
+            
+            Usuario u = new Usuario("Kolmant");
+            Proyecto p = new Proyecto("SuperProyecto",u);
+            u.delegarProyecto(new Usuario("poshito"));
             Assert.fail("Dejo delegar el proyecto");
-        }catch(UsuarioException te){
-            Assert.assertEquals("La excepcion lanzada fue distinta",UsuarioException.USUARIO_SIN_DERECHOS, te.getMessage());
+        }catch(EntitiesException te){
+            Assert.assertEquals("La excepcion lanzada fue distinta",EntitiesException.USUARIO_SIN_DERECHOS, te.getMessage());
         }
     }
     
@@ -46,13 +47,14 @@ public class UsuarioTest {
     @Test
     public void DeberiaPoderDelegarProyectoSiendoDuenno() {
         try {
-            Proyecto p = new Proyecto();
-            Usuario u = new Usuario("Kolmant", p);
+            
+            Usuario u = new Usuario("Kolmant");
+            Proyecto p = new Proyecto("SuperProyecto",u);
             p.setDuenno(u);
-            u.delegarProyecto(new Usuario("poshito",p));
+            u.delegarProyecto(new Usuario("poshito"));
             Assert.fail("Dejo delegar el proyecto");
-        }catch(UsuarioException te){
-            Assert.assertEquals("La excepcion lanzada fue distinta",UsuarioException.USUARIO_SIN_DERECHOS, te.getMessage());
+        }catch(EntitiesException te){
+            Assert.assertEquals("La excepcion lanzada fue distinta",EntitiesException.USUARIO_SIN_DERECHOS, te.getMessage());
         }
     }
 }

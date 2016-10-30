@@ -7,7 +7,7 @@ package entities;
 
 
 import edu.eci.arsw.nieddu.intellijava.entities.Tarea;
-import edu.eci.arsw.nieddu.intellijava.entities.TareaException;
+import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,8 +27,8 @@ public class TareasTest {
             tarea.completar();
             tarea.completar();
             Assert.fail("Dejo completar dos veces");
-        }catch(TareaException te){
-            Assert.assertEquals("La excepcion lanzada fue distinta",TareaException.TAREA_COMPLETA, te.getMessage());
+        }catch(EntitiesException te){
+            Assert.assertEquals("La excepcion lanzada fue distinta",EntitiesException.TAREA_COMPLETA, te.getMessage());
         }
     }
     //Clase de equivalencia 2, Deberia poderse completar una tarea
@@ -38,7 +38,7 @@ public class TareasTest {
             Tarea tarea = new Tarea("Tarea de prueba");
             tarea.completar();
             Assert.assertTrue("No se completo la tarea", tarea.isCompleta());
-        }catch(TareaException te){
+        }catch(EntitiesException te){
             Assert.fail("Lanzo excepcion al completar la tarea");
         }
     }
@@ -48,8 +48,8 @@ public class TareasTest {
         try {
             Tarea tarea = new Tarea(null);
             Assert.fail("Dejo crear tarea sin descripcion");
-        }catch(TareaException te){
-            Assert.assertEquals("La excepcion lanzada fue distinta",TareaException.TAREA_SIN_DESCRIPCION, te.getMessage());
+        }catch(EntitiesException te){
+            Assert.assertEquals("La excepcion lanzada fue distinta",EntitiesException.TAREA_SIN_DESCRIPCION, te.getMessage());
         }
     }
 }
