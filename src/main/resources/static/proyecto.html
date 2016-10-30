@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <html>
     <head>
-        <title>Log in</title>
+        <title>Write</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="style.css">
@@ -26,19 +26,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <script src="/webjars/stomp-websocket/stomp.min.js"></script>
         <script src="/webjars/google-diff-match-patch/diff_match_patch.js"></script>
         <script src="/webjars/ace/ace/01.08.2014/src/ace.js"></script>
-        <script src="/log.js"></script>
+        <script src="/app.js"></script>
     </head>
 
 
 
     <body>
         <div id="titulo">
-            Bienvenido a Intellijava
+            Nombre proyecto
         </div>
+        <div id="guiaProyecto"></div>
         <div id="contenido">
-            Digite su nombre de usuario
-            <textarea id="userLog"></textarea>
-            <button onclick="connect()">Enviar</button>
+            <textarea id="orig"></textarea>
         </div>
+        <div id="text"></div>
     </body>
 </html>
