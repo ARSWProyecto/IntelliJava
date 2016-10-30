@@ -36,7 +36,9 @@ public class Tarea {
      * @throws TareaException si la descripcion es nula o vacia
      */
     public Tarea(String descripcion) throws TareaException{
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(descripcion == null || descripcion.equals(""))throw new TareaException(TareaException.TAREA_SIN_DESCRIPCION);
+        this.descripcion=descripcion;
+        this.completa=false;
     }
 
     /**
@@ -44,7 +46,8 @@ public class Tarea {
      * @throws TareaException si la tarea ya fue completada
      */
     public void completar() throws TareaException{
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(isCompleta())throw new TareaException(TareaException.TAREA_COMPLETA);
+        setCompleta(true);
     }
 
     
