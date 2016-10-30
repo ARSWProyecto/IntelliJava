@@ -15,10 +15,10 @@ public class Usuario {
 
 	private Proyecto proyectoActual;
         
-        public Usuario(String nombre, Proyecto proyectoActual) throws EntitiesException{
+        public Usuario(String nombre) throws EntitiesException{
             if(nombre==null)throw new EntitiesException(EntitiesException.USUARIO_SIN_NOMBRE);
             this.nombre = nombre;
-            this.proyectoActual=proyectoActual;
+            //this.proyectoActual=proyectoActual;
         }
         
         public boolean esDuenno(){
