@@ -8,8 +8,6 @@ package entities;
 import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
 import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 /**
@@ -54,6 +52,7 @@ public class ProyectoTest {
     }
     
     //clase de equivalencia 2, no deberia poderse agregar colaboradores nulos.
+    @Test
     public void colaboradoresRegistrados(){
         try{
             Usuario u = new Usuario("Poshito");
@@ -66,6 +65,7 @@ public class ProyectoTest {
     }
     
     //clase de equivalencia 2, no deberia poderse cambiar de duenno si es vacio.
+    @Test
     public void cambioDeDuenno(){
         try{
             Usuario u = new Usuario("Poshito");
@@ -78,6 +78,7 @@ public class ProyectoTest {
     }
     
     //clase de equivalencia 2, no deberia poderse agregar una tarea si es vacia.
+    @Test
     public void adicionarTarea(){
         try{
             Usuario u = new Usuario("Poshito");
