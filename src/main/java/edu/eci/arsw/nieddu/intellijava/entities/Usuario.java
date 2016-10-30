@@ -15,8 +15,8 @@ public class Usuario {
 
 	private Proyecto proyectoActual;
         
-        public Usuario(String nombre, Proyecto proyectoActual) throws UsuarioException{
-            if(nombre==null)throw new UsuarioException(UsuarioException.USUARIO_SIN_NOMBRE);
+        public Usuario(String nombre, Proyecto proyectoActual) throws EntitiesException{
+            if(nombre==null)throw new EntitiesException(EntitiesException.USUARIO_SIN_NOMBRE);
             this.nombre = nombre;
             this.proyectoActual=proyectoActual;
         }
@@ -25,9 +25,9 @@ public class Usuario {
             return proyectoActual.getDuenno().nombre.equals(nombre);
         }
         
-        public void delegarProyecto(Usuario otherUser) throws UsuarioException{ 
+        public void delegarProyecto(Usuario otherUser) throws EntitiesException{ 
             if(!esDuenno()){
-                throw new UsuarioException(UsuarioException.USUARIO_SIN_DERECHOS);
+                throw new EntitiesException(EntitiesException.USUARIO_SIN_DERECHOS);
             }
             proyectoActual.setDuenno(otherUser);
         }
