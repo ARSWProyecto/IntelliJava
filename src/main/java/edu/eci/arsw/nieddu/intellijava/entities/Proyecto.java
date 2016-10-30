@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author 2107803
+ * @author Nieddu
  */
 public class Proyecto {
     
@@ -23,9 +23,12 @@ public class Proyecto {
     
     
     public Proyecto(String nombre, Usuario duenno) throws EntitiesException{
-        if(nombre==null) throw new EntitiesException(EntitiesException.PROYECTO_SIN_NOMBRE);
+        if(nombre==null || nombre.isEmpty()) throw new EntitiesException(EntitiesException.PROYECTO_SIN_NOMBRE);
+        if(duenno==null) throw new EntitiesException(EntitiesException.PROYECTO_SIN_DUENNO);
         this.duenno=duenno;
         this.nombre=nombre;
+        colaboradores = new ArrayList<>();
+        tareas = new ArrayList<>();
     }
     public String getNombre() {
         return nombre;
@@ -42,6 +45,11 @@ public class Proyecto {
     public void setColaboradores(ArrayList<Usuario> colaboradores) {
         this.colaboradores = colaboradores;
     }
+    
+    public void addColaborador(Usuario u) throws EntitiesException{
+        if(u==null)throw new EntitiesException(EntitiesException.PROYECTO_ADICION_USUARIOVACIO);
+        colaboradores.add(u);
+    }
 
     public ArrayList<Tarea> getTareas() {
         return tareas;
@@ -51,13 +59,17 @@ public class Proyecto {
         this.tareas = tareas;
     }
     
-    
+    public void addTarea(Tarea tarea) throws EntitiesException{
+        if(tarea==null)throw new EntitiesException(EntitiesException.PROYECTO_ADICION_TAREAVACIA);
+        tareas.add(tarea);
+    }
     
     public Usuario getDuenno() {
 	return duenno;
     }
 
-    public void setDuenno(Usuario otherUser) {
+    public void setDuenno(Usuario otherUser) throws EntitiesException {
+        if(otherUser==null)throw new EntitiesException(EntitiesException.PROYECTO_SIN_DUENNO);
         this.duenno=otherUser;
     }
 }
