@@ -16,7 +16,7 @@ public class Usuario {
 	private Proyecto proyectoActual;
         
         public Usuario(String nombre) throws EntitiesException{
-            if(nombre==null)throw new EntitiesException(EntitiesException.USUARIO_SIN_NOMBRE);
+            if(nombre==null || nombre.isEmpty())throw new EntitiesException(EntitiesException.USUARIO_SIN_NOMBRE);
             this.nombre = nombre;
         }
         

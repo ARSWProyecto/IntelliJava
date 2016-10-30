@@ -29,6 +29,16 @@ public class UsuarioTest {
         }
     }
     
+        @Test
+    public void deberiaTenerNombreNoVacio() {
+        try {
+            Usuario u = new Usuario("");
+            Assert.fail("Dejo crear el usuario");
+        }catch(EntitiesException te){
+            Assert.assertEquals("La excepcion lanzada fue distinta",EntitiesException.USUARIO_SIN_NOMBRE, te.getMessage());
+        }
+    }
+    
     //Clase de equivalencia 2, Un usuario que no es dueño de un proyecto no debería poder delegarlo
     @Test
     public void noDeberiaPoderDelegarProyectoSinSerDuenno() {
