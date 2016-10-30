@@ -8,19 +8,27 @@ package edu.eci.arsw.nieddu.intellijava.entities;
 /**
  *
  * @author 2100038
- */
+ */ 
 public class Usuario {
 
 	private String nombre;
 
 	private Proyecto proyectoActual;
-
-	private boolean esDuenno;
         
-        public Usuario(String nombre, Proyecto proyectoActual, boolean esDuenno){
+        public Usuario(String nombre, Proyecto proyectoActual) throws UsuarioException{
+            if(nombre==null)throw new UsuarioException(UsuarioException.USUARIO_SIN_NOMBRE);
             this.nombre = nombre;
             this.proyectoActual=proyectoActual;
-            this.esDuenno=esDuenno;
         }
-
+        
+        public boolean esDuenno(){
+            return proyectoActual.getDuenno().nombre.equals(nombre);
+        }
+        
+        public void delegarProyecto(Usuario otherUser) throws UsuarioException{ 
+            if(!esDuenno()){
+                throw new UsuarioException(UsuarioException.USUARIO_SIN_DERECHOS);
+            }
+            proyectoActual.setDuenno(otherUser);
+        }
 }

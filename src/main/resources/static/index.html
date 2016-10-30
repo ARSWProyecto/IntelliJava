@@ -1,10 +1,55 @@
 <!DOCTYPE html>
+<!--
+Copyright (C) 2016 Pivotal Software, Inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
 <html>
     <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Write</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+        <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+        <script src="/webjars/google-diff-match-patch/diff_match_patch.js"></script>
+        <script src="/webjars/ace/ace/01.08.2014/src/ace.js"></script>
+        <script src="/app.js"></script>
+<style>
+            #text {
+                position: absolute;
+                width: 500px;
+                height: 400px;
+                font-size: 14px;
+            }
+            
+            * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+}
+        </style>
     </head>
+
+
+
     <body>
-        <h1>Hello World!</h1>
+        <!--
+        <button onclick="connect()" id="connect">Connect</button>
+        <button onclick="disconnect()" id="disconnect">Disconnect</button>
+         <canvas id="myCanvas" width="800" height="600"></canvas> 
+        -->
+        <textarea id="orig" style="display: none"></textarea>
+        <div id="text"></div>
     </body>
 </html>
