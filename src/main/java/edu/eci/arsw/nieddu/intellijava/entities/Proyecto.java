@@ -61,5 +61,4 @@ public class Proyecto {
     public void setDuenno(Usuario otherUser) {
         this.duenno=otherUser;
     }
-    
 }

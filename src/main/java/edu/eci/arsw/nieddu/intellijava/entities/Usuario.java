@@ -18,11 +18,15 @@ public class Usuario {
         public Usuario(String nombre) throws EntitiesException{
             if(nombre==null)throw new EntitiesException(EntitiesException.USUARIO_SIN_NOMBRE);
             this.nombre = nombre;
-            //this.proyectoActual=proyectoActual;
         }
         
         public boolean esDuenno(){
-            return proyectoActual.getDuenno().nombre.equals(nombre);
+            boolean resp = proyectoActual==null?false:proyectoActual.getDuenno().nombre.equals(nombre);
+            return resp;
+        }
+        
+        public void setProyectoActual(Proyecto proj){
+            proyectoActual=proj;
         }
         
         public void delegarProyecto(Usuario otherUser) throws EntitiesException{ 
