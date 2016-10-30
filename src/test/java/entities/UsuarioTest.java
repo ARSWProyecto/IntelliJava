@@ -47,12 +47,11 @@ public class UsuarioTest {
     @Test
     public void DeberiaPoderDelegarProyectoSiendoDuenno() {
         try {
-            
             Usuario u = new Usuario("Kolmant");
             Proyecto p = new Proyecto("SuperProyecto",u);
             p.setDuenno(u);
             u.delegarProyecto(new Usuario("poshito"));
-            Assert.fail("Dejo delegar el proyecto");
+            Assert.fail("No dejo delegar el proyecto");
         }catch(EntitiesException te){
             Assert.assertEquals("La excepcion lanzada fue distinta",EntitiesException.USUARIO_SIN_DERECHOS, te.getMessage());
         }
