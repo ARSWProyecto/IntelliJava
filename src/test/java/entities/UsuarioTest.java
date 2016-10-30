@@ -5,12 +5,11 @@
  */
 package entities;
 
+
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
 import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
 import edu.eci.arsw.nieddu.intellijava.entities.UsuarioException;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
