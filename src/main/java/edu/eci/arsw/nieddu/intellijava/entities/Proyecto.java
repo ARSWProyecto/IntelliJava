@@ -23,10 +23,9 @@ public class Proyecto {
     
     
     public Proyecto(String nombre, Usuario duenno) throws EntitiesException{
-        if(nombre!=null) throw new EntitiesException(EntitiesException.PROYECTO_SIN_NOMBRE);
+        if(nombre==null) throw new EntitiesException(EntitiesException.PROYECTO_SIN_NOMBRE);
         this.duenno=duenno;
         this.nombre=nombre;
-            
     }
     public String getNombre() {
         return nombre;
