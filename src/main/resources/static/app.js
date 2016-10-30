@@ -1,4 +1,4 @@
-/* var dmp = new diff_match_patch();
+var dmp = new diff_match_patch();
 
 function connect() {
     $("#connect").prop("disabled", true);
@@ -12,8 +12,8 @@ function connect() {
             var patch_text = JSON.parse(data.body);
             var patches = dmp.patch_fromText(patch_text.text);
             text1 = $("#orig").val();
-            cursor = editor.selection.getCursor();
-            console.log(cursor);
+            //cursor = editor.selection.getCursor();
+            //console.log(cursor);
             var results = dmp.patch_apply(patches, text1);
             console.log(patches);
             $("#orig").val(results[0]);
@@ -49,9 +49,8 @@ $(document).ready(
             });
         }
 );
-*/
 
-
+/*
  var dmp = new diff_match_patch();
  var Range = require("ace/range").Range;
  
@@ -114,4 +113,4 @@ $(document).ready(
  });
  }
  );
- 
+ */
