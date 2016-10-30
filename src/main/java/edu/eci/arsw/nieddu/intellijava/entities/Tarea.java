@@ -35,8 +35,8 @@ public class Tarea {
      * @param descripcion de la tarea
      * @throws TareaException si la descripcion es nula o vacia
      */
-    public Tarea(String descripcion) throws TareaException{
-        if(descripcion == null || descripcion.equals(""))throw new TareaException(TareaException.TAREA_SIN_DESCRIPCION);
+    public Tarea(String descripcion) throws EntitiesException{
+        if(descripcion == null || descripcion.equals(""))throw new EntitiesException(EntitiesException.TAREA_SIN_DESCRIPCION);
         this.descripcion=descripcion;
         this.completa=false;
     }
@@ -45,8 +45,8 @@ public class Tarea {
      * Completa una tarea
      * @throws TareaException si la tarea ya fue completada
      */
-    public void completar() throws TareaException{
-        if(isCompleta())throw new TareaException(TareaException.TAREA_COMPLETA);
+    public void completar() throws EntitiesException{
+        if(isCompleta())throw new EntitiesException(EntitiesException.TAREA_COMPLETA);
         setCompleta(true);
     }
 

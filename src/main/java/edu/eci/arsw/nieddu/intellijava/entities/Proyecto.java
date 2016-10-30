@@ -20,13 +20,46 @@ public class Proyecto {
     private ArrayList<Usuario> colaboradores;
 
     private ArrayList<Tarea> tareas;
+    
+    
+    public Proyecto(String nombre, Usuario duenno) throws EntitiesException{
+        if(nombre!=null) throw new EntitiesException(EntitiesException.PROYECTO_SIN_NOMBRE);
+        this.duenno=duenno;
+        this.nombre=nombre;
+            
+    }
+    public String getNombre() {
+        return nombre;
+    }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public ArrayList<Usuario> getColaboradores() {
+        return colaboradores;
+    }
+
+    public void setColaboradores(ArrayList<Usuario> colaboradores) {
+        this.colaboradores = colaboradores;
+    }
+
+    public ArrayList<Tarea> getTareas() {
+        return tareas;
+    }
+
+    public void setTareas(ArrayList<Tarea> tareas) {
+        this.tareas = tareas;
+    }
+    
+    
+    
     public Usuario getDuenno() {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	return duenno;
     }
 
     public void setDuenno(Usuario otherUser) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.duenno=otherUser;
     }
     
 }
