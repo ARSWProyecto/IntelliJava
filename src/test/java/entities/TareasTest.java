@@ -5,8 +5,8 @@
  */
 package entities;
 
-import edu.eci.arsw.NiEdDu.entities.Tarea;
-import edu.eci.arsw.NiEdDu.entities.TareaException;
+import edu.eci.arsw.nieddu.intellijava.entities.Tarea;
+import edu.eci.arsw.nieddu.intellijava.entities.TareaException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,7 +29,6 @@ public class TareasTest {
         }catch(TareaException te){
             Assert.assertEquals("La excepcion lanzada fue distinta",TareaException.TAREA_COMPLETA, te.getMessage());
         }
-
     }
     //Clase de equivalencia 2, Deberia poderse completar una tarea
     @Test
@@ -40,7 +39,7 @@ public class TareasTest {
             Assert.assertTrue("No se completo la tarea", tarea.isCompleta());
         }catch(TareaException te){
             Assert.fail("Lanzo excepcion al completar la tarea");
-        }        
+        }
     }
     //Clase de equivalencia 3, Una tarea debe tener descripcion
     @Test
@@ -50,6 +49,6 @@ public class TareasTest {
             Assert.fail("Dejo crear tarea sin descripcion");
         }catch(TareaException te){
             Assert.assertEquals("La excepcion lanzada fue distinta",TareaException.TAREA_SIN_DESCRIPCION, te.getMessage());
-        }  
+        }
     }
 }
