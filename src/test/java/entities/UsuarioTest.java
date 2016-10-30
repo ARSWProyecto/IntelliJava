@@ -33,7 +33,6 @@ public class UsuarioTest {
     @Test
     public void noDeberiaPoderDelegarProyectoSinSerDuenno() {
         try {
-            
             Usuario u = new Usuario("Kolmant");
             Proyecto p = new Proyecto("SuperProyecto",u);
             u.delegarProyecto(new Usuario("poshito"));

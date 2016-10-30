@@ -15,7 +15,10 @@ public class EntitiesException extends Exception{
     public final static String USUARIO_SIN_DERECHOS = "El usuario no tiene permisos para delegar el proyecto actual";
     public final static String TAREA_COMPLETA = "La tarea ya fue completada";
     public final static String TAREA_SIN_DESCRIPCION = "Toda tarea debe tener una descripcion";
-    public final static String PROYECTO_SIN_NOMBRE = "El proyecto tiene que tener un nombre";
+    public final static String PROYECTO_SIN_NOMBRE = "El proyecto debe tener un nombre con almenos un caracter";
+    public final static String PROYECTO_SIN_DUENNO = "El proyecto debe tener un duenno";
+    public final static String PROYECTO_ADICION_USUARIOVACIO = "Los colaboradores deben ser usuarios registrados";
+    public final static String PROYECTO_ADICION_TAREAVACIA = "Las tareas deben ser diferentes de vacio";
     
     
     
