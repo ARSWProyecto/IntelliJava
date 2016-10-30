@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.arsw.NiEdDu.entities;
-
+package edu.eci.arsw.nieddu.intellijava.entities;
 /**
  *
- * @author Zawsx
+ * @author 2107803
  */
-public class Paquete {
+public class Proyecto {
     
 }

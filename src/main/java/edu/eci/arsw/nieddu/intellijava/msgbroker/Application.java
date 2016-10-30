@@ -1,4 +1,4 @@
-package edu.eci.arsw.NiEdDu.msgbroker;
+package edu.eci.arsw.nieddu.intellijava.msgbroker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
