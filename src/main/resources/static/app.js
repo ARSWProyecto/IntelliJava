@@ -8,7 +8,7 @@ function connect() {
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
 
-        stompClient.subscribe('/topic/newpoint', function (data) {
+        stompClient.subscribe('/topic/project.'+sessionStorage.nameProject, function (data) {
             var patch_text = JSON.parse(data.body);
             var patches = dmp.patch_fromText(patch_text.text);
             text1 = $("#orig").val();
