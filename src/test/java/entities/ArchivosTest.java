@@ -10,5 +10,6 @@ package entities;
  * @author Zawsx
  */
 public class ArchivosTest {
-    
+
+    //Clase equivalencia 1, un archivo debe tener un nombre
 }
