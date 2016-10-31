@@ -37,7 +37,8 @@ $(document).ready(
             $("#titulo").html(sessionStorage.nameProject);
             connect();
             editor = ace.edit("text");
-            editor.getSession().setMode("ace/mode/python");
+            editor.setFontSize(18);
+            editor.getSession().setMode("ace/mode/java");
             editor.setTheme("ace/theme/monokai");
             $('#text').on('input selectionchange propertychange', function () {
                 text1 = $("#orig").val();
