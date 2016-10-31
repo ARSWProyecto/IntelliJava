@@ -9,15 +9,20 @@ function connect() {
         console.log('Connected: ' + frame);
 
         stompClient.subscribe('/topic/project.'+sessionStorage.nameProject, function (data) {
-            var patch_text = JSON.parse(data.body);
-            var patches = dmp.patch_fromText(patch_text.text);
-            text1 = $("#orig").val();
-            //cursor = editor.selection.getCursor();
-            //console.log(cursor);
-            var results = dmp.patch_apply(patches, text1);
-            console.log(patches);
-            $("#orig").val(results[0]);
-            editor.setValue(results[0],1);
+            var obj = JSON.parse(data.body);
+            console.log(sessionStorage.name);
+            if(obj.author!=sessionStorage.name){
+                var patches = dmp.patch_fromText(obj.text);
+                text1 = $("#orig").val();
+                //cursor = editor.selection.getCursor();
+                //console.log(cursor);
+                var results = dmp.patch_apply(patches, text1);
+                console.log(patches);
+                $("#orig").val(results[0]);
+                editor.setValue(results[0],1);
+            }else{
+                $("#orig").val(editor.getValue());
+            }
         });
     });
 }
@@ -47,7 +52,7 @@ $(document).ready(
                 var diff = dmp.diff_main(text1, text2, true);
                 var patch_list = dmp.patch_make(text1, text2, diff);
                 patch_text = dmp.patch_toText(patch_list);
-                stompClient.send("/topic/project."+sessionStorage.nameProject, {}, JSON.stringify({text: patch_text}));
+                stompClient.send("/topic/project."+sessionStorage.nameProject, {}, JSON.stringify({text: patch_text,author: sessionStorage.name}));
             });
         }
 );
