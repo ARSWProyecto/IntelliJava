@@ -20,25 +20,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <title>Log in</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" href="webjars/bootstrap/bootstrap.min.css" type="text/css"/>
         <script src="/webjars/jquery/jquery.min.js"></script>
         <script src="/webjars/sockjs-client/sockjs.min.js"></script>
         <script src="/webjars/stomp-websocket/stomp.min.js"></script>
         <script src="/webjars/google-diff-match-patch/diff_match_patch.js"></script>
         <script src="/webjars/ace/ace/01.08.2014/src/ace.js"></script>
+        <script src="/webjars/bootstrap/bootstrap.min.js"></script>
         <script src="/log.js"></script>
     </head>
 
 
 
     <body>
-        <div id="titulo">
-            Bienvenido a Intellijava
-        </div>
-        <div id="contenido">
-            Digite su nombre de usuario
-            <textarea id="userLog"></textarea>
-            <button onclick="connect()">Enviar</button>
-        </div>
+        <h3><span class="label label-primary">Bienvenido a Intellijava</span></h3>
+        <form method="get" action="entrada.html" class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <input id="nombre" type="text" class="form-control" placeholder="User name">
+            </div>
+            <button type="submit" class="btn btn-default" onclick="guardarNombre()" >Submit</button>
+        </form>
     </body>
 </html>
