@@ -34,6 +34,7 @@ function disconnect() {
 
 $(document).ready(
         function () {
+            $("#titulo").html(sessionStorage.nameProject);
             connect();
             editor = ace.edit("text");
             editor.getSession().setMode("ace/mode/python");
@@ -45,7 +46,7 @@ $(document).ready(
                 var diff = dmp.diff_main(text1, text2, true);
                 var patch_list = dmp.patch_make(text1, text2, diff);
                 patch_text = dmp.patch_toText(patch_list);
-                stompClient.send("/app/newpoint", {}, JSON.stringify({text: patch_text}));
+                stompClient.send("/topic/project."+sessionStorage.nameProject, {}, JSON.stringify({text: patch_text}));
             });
         }
 );

@@ -21,11 +21,11 @@ public class STOMPMessagesHandler {
     @Autowired
     SimpMessagingTemplate msgt;
 
-    @MessageMapping("/newpoint")
+    @MessageMapping("/project")
     public void getLine(String str) throws Exception {
         System.out.println("Nuevo parche recibido en el servidor!:" + str);
         //synchronized(str){
-        msgt.convertAndSend("/topic/newpoint", str);
+        msgt.convertAndSend("/topic/project", str);
         //}
     }
 }

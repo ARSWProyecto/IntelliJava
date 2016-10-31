@@ -38,7 +38,7 @@ function guardarNombre(){
 
 $(document).ready(
         function() {
-            $("#nombre").html("<div class='container'>Esta logueado como "+sessionStorage.name+"</div>");
-            connect();            
+            $("#nombre").html("Esta logueado como "+sessionStorage.name);
+            connect();
         }
 );
