@@ -1,9 +1,5 @@
 
 function guardarNombre(){
-    nombre = $("#nombre").val();
-    console.log(nombre);
-}
-
-function nombre(){
-    return nombre;
+    var nombre = $("#nombre").val();
+    sessionStorage.name = nombre;
 }
