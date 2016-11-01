@@ -8,7 +8,7 @@ function connect() {
         stompClient.subscribe('/topic/waiting.'+sessionStorage.name, function (data) {
             var theObject = JSON.parse(data.body);
             console.log(theObject.miNombre+" "+theObject.nombreProy);
-            var irAProyecto = confirm(theObject.miNombre+" te ha invitado a su proyecto"+theObject.nombreProy+" ¿Aceptas?");
+            var irAProyecto = confirm(theObject.miNombre+" te ha invitado a su proyecto "+theObject.nombreProy+" ¿Aceptas?");
             if(irAProyecto){
                 sessionStorage.nameProject=theObject.nombreProy;
                 redireccionar();
