@@ -27,6 +27,14 @@ function connect() {
     });
 }
 
+function enviarInvitacion(){
+    var nombreInvitado= $("#nombreAmigo").val();
+    var miNombre = sessionStorage.name;
+    var nombreProy = sessionStorage.nameProject;
+    console.log(miNombre+" "+nombreProy);
+    stompClient.send("/topic/waiting."+nombreInvitado, {}, JSON.stringify({miNombre:miNombre,nombreProy:nombreProy}));
+}
+
 function disconnect() {
     if (stompClient != null) {
         $("#connect").prop("disabled", false);
