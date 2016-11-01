@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.arsw.nieddu.intellijava.services;
+package edu.eci.arsw.nieddu.intellijava.msgbroker;
 
 import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
 import java.util.ArrayList;
@@ -17,20 +17,15 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class IntelijavaServices {
+public class IntellijavaServices {
     
-    public static CopyOnWriteArrayList usersArray;
+    public CopyOnWriteArrayList usersArray;
     
-    public IntelijavaServices(){
+    public IntellijavaServices(){
         usersArray= new CopyOnWriteArrayList();
-        
     }
     
     public void addUser(Usuario u){
         usersArray.add(u);
     }
-    /*
-    public void delUser(Usuario u){
-        
-    }*/
 }

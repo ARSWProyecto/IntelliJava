@@ -7,7 +7,6 @@ package edu.eci.arsw.nieddu.intellijava.msgbroker;
 
 import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
-import edu.eci.arsw.nieddu.intellijava.services.IntelijavaServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = "/intelijava")
-public class restMessage {
+public class IntellijavaResourceController {
+    
+    @Autowired
+    IntellijavaServices ins;
     
     @Autowired
     SimpMessagingTemplate msgt;
-    
-    @Autowired
-    IntelijavaServices ins;
     
     @RequestMapping(path = "/colaboradores",method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPost(@RequestBody String nombre) throws EntitiesException {
