@@ -7,9 +7,10 @@ function connect() {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/waiting.'+sessionStorage.name, function (data) {
             var theObject = JSON.parse(data.body);
-            console.log(theObject);
-            var irAProyecto = confirm(theObject[0]+" te ha invitado a su proyecto ¿Aceptas?"+theObject[1]);
+            console.log(theObject.miNombre+" "+theObject.nombreProy);
+            var irAProyecto = confirm(theObject.miNombre+" te ha invitado a su proyecto"+theObject.nombreProy+" ¿Aceptas?");
             if(irAProyecto){
+                sessionStorage.nameProject=theObject.nombreProy;
                 redireccionar();
             }
         });
