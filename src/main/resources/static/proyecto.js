@@ -28,7 +28,7 @@ function connect() {
 }
 
 function enviarInvitacion(){
-    var nombreInvitado= $("#nombreAmigo").val();
+    var nombreInvitado= $("#Ncolaborador").val();
     var miNombre = sessionStorage.name;
     var nombreProy = sessionStorage.nameProject;
     console.log(miNombre+" "+nombreProy);
