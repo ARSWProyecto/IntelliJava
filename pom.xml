@@ -70,7 +70,13 @@
             <groupId>org.webjars</groupId>
             <artifactId>google-diff-match-patch</artifactId>
             <version>20121119-1</version>
-        </dependency>          
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jstree</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+                            
                                 
                                                                 
     </dependencies>
