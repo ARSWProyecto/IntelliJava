@@ -19,6 +19,10 @@ public class EntitiesException extends Exception{
     public final static String PROYECTO_SIN_DUENNO = "El proyecto debe tener un duenno";
     public final static String PROYECTO_ADICION_USUARIOVACIO = "Los colaboradores deben ser usuarios registrados";
     public final static String PROYECTO_ADICION_TAREAVACIA = "Las tareas deben ser diferentes de vacio";
+    public final static String ARCHIVO_SIN_NOMBRE = "El archivo no tiene nombre";
+    public final static String ARCHIVO_REPETIDO = "Este archivo ya existe";
+    public final static String ARCHIVO_INEXISTENTE = "Este archivo no existe";
+    public final static String PAQUETE_SIN_NOMBRE = "El paquete no tiene nombre";
     
     
     
