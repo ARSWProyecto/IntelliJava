@@ -27,8 +27,4 @@ public class IntelijavaServices {
     public void addUser(Usuario u){
         usersArray.add(u);
     }
-    /*
-    public void delUser(Usuario u){
-        
-    }*/
 }
