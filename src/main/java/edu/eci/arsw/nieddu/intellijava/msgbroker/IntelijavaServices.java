@@ -23,22 +23,22 @@ public class IntelijavaServices {
     
     public IntelijavaServices(){
         usersArray= new CopyOnWriteArrayList();
-        
+        projectsArray= new CopyOnWriteArrayList<>();
     }
     
     public boolean addUser(Usuario u){
         boolean resp;
-        if(resp = !existeUsuario(u)){
+        if(resp = existeUsuario(u.getNombre())==null){
             usersArray.add(u);
         }
         return resp;
     }
 
-    public boolean existeUsuario(Usuario u) {
-        boolean resp = false;
-        for(int i = 0 ; i < usersArray.size() && !resp; i++){
-            if(usersArray.get(i).getNombre().equals(u.getNombre())){
-                resp = true;
+    public Usuario existeUsuario(String u) {
+        Usuario resp = null;
+        for(int i = 0 ; i < usersArray.size() && resp==null; i++){
+            if(usersArray.get(i).getNombre().equals(u)){
+                resp = usersArray.get(i);
             }
         }
         return resp;
@@ -46,17 +46,17 @@ public class IntelijavaServices {
 
     public boolean addProject(Proyecto p){
         boolean resp;
-        if(resp = !existeProyecto(p)){
+        if(resp = existeProyecto(p.getNombre())==null){
             projectsArray.add(p);
         }
         return resp;
     }
 
-    public boolean existeProyecto(Proyecto p) {
-        boolean resp = false;
-        for(int i = 0 ; i < projectsArray.size() && !resp; i++){
-            if(projectsArray.get(i).getNombre().equals(p.getNombre())){
-                resp = true;
+    public Proyecto existeProyecto(String p) {
+        Proyecto resp = null;
+        for(int i = 0 ; i < projectsArray.size() && resp==null; i++){
+            if(projectsArray.get(i).getNombre().equals(p)){
+                resp = projectsArray.get(i);
             }
         }
         return resp;

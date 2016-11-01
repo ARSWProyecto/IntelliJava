@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,12 +46,32 @@ public class IntellijavaResourceController {
         }
     }
     
-    @RequestMapping(path = "/proyecto",method = RequestMethod.POST)
-    public ResponseEntity<?> manejadorPost(@RequestBody String nombre, @RequestBody Usuario usuario) throws EntitiesException {
+    @RequestMapping(path = "/proyecto/{nombreP}/colaborador",method = RequestMethod.POST)
+    public ResponseEntity<?> addColaborador(@PathVariable String nombreP, @RequestBody String usuario) throws EntitiesException {
         //registrar usuario
-        Proyecto p = new Proyecto(nombre, usuario);
-        ins.addProject(p);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        Proyecto p=ins.existeProyecto(nombreP);
+        Usuario u = ins.existeUsuario(usuario);
+        if(p!=null && u!=null){
+            p.addColaborador(u);
+            return new ResponseEntity<>(HttpStatus.CREATED);  
+        }else{
+            //System.out.println("No creado");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    @RequestMapping(path = "/proyecto/{nombreP}",method = RequestMethod.POST)
+    public ResponseEntity<?> addProyecto(@PathVariable String nombreP,@RequestBody String usuario) throws EntitiesException {
+        //registrar proyecto con su Duenno
+        Usuario u = ins.existeUsuario(usuario);
+        Proyecto p = new Proyecto(nombreP, u);
+        boolean created=ins.addProject(p);
+        if(created){
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        
     }
     
     
