@@ -7,7 +7,8 @@ function connect() {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/waiting.'+sessionStorage.name, function (data) {
             var theObject = JSON.parse(data.body);
-            var irAProyecto = confirm(theObject[0]+" te ha invitado a su proyecto ¿Aceptas?");
+            console.log(theObject);
+            var irAProyecto = confirm(theObject[0]+" te ha invitado a su proyecto ¿Aceptas?"+theObject[1]);
             if(irAProyecto){
                 redireccionar();
             }
