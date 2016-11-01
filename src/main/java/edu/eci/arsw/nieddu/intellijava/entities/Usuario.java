@@ -35,4 +35,8 @@ public class Usuario {
             }
             proyectoActual.setDuenno(otherUser);
         }
+
+    public String getNombre() {
+        return nombre;
+    }
 }
