@@ -22,6 +22,11 @@ function connect() {
     });
 }
 
+function buscarColaborador(){
+    alert("buscando colaborador "+$("#Ncolaborador").val());
+    console.log($("#Ncolaborador").val());
+}
+
 function disconnect() {
     if (stompClient != null) {
         $("#connect").prop("disabled", false);
@@ -35,6 +40,7 @@ function disconnect() {
 $(document).ready(
         function () {
             $("#titulo").html(sessionStorage.nameProject);
+            //$("#colaboran").html(sessionStorage.)
             connect();
             editor = ace.edit("text");
             editor.setFontSize(18);
