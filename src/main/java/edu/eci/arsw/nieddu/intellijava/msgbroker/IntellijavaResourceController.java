@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = "/intelijava")
-public class restMessage {
-    
-    @Autowired
-    SimpMessagingTemplate msgt;
+public class IntellijavaResourceController {
     
     @Autowired
     IntelijavaServices ins;
+    
+    @Autowired
+    SimpMessagingTemplate msgt;
     
     @RequestMapping(path = "/colaboradores",method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPost(@RequestBody String nombre) throws EntitiesException {
