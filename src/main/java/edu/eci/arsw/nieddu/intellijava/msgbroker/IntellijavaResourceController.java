@@ -35,7 +35,6 @@ public class IntellijavaResourceController {
         //registrar usuario
         Usuario u = new Usuario(nombre);
         ins.addUser(u);
-        System.out.println("guardado");
         //msgt.convertAndSend("/topic/newpoint", pt);
         return new ResponseEntity<>(HttpStatus.CREATED);    
     }
