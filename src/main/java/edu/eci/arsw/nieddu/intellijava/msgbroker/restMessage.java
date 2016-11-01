@@ -7,7 +7,6 @@ package edu.eci.arsw.nieddu.intellijava.msgbroker;
 
 import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
-import edu.eci.arsw.nieddu.intellijava.services.IntelijavaServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
