@@ -7,6 +7,7 @@ package edu.eci.arsw.nieddu.intellijava.msgbroker;
 
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
 import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.springframework.stereotype.Service;
 
@@ -61,7 +62,7 @@ public class IntelijavaServices {
         }
         return resp;
     }
-    
+
     public boolean delUsuario(Usuario u){
         boolean resp=false;
         for (int i = 0; i < usersArray.size() && !resp; i++) {
@@ -82,5 +83,21 @@ public class IntelijavaServices {
             }
         }
         return resp;
+    }
+
+    public List<Usuario> usuarios(){
+        return usersArray;
+    }
+    
+    public List<Usuario> colaboradores(String p){
+        Proyecto toReturn = existeProyecto(p);
+        if(toReturn == null)return null;
+        return toReturn.getColaboradores();
+    }
+    
+    public Usuario getDuennoProyecto(String p){
+        Proyecto toReturn = existeProyecto(p);
+        if(toReturn == null)return null;
+        return toReturn.getDuenno();
     }
 }
