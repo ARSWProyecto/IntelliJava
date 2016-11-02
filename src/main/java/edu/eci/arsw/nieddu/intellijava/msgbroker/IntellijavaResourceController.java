@@ -117,4 +117,13 @@ public class IntellijavaResourceController {
             return new ResponseEntity<>(p,HttpStatus.ACCEPTED);
         }        
     }
+    
+    @RequestMapping(path = "/proyecto/{nombreP}/duenno", method = RequestMethod.PUT)
+    public ResponseEntity<?> cambiarDuennoProyecto(@PathVariable String nombreP, @RequestBody Usuario usuario){
+        if(ins.cambiarDuennoProyecto(nombreP, usuario)){
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

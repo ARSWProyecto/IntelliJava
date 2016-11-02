@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.nieddu.intellijava.msgbroker;
 
+import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
 import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
 import java.util.List;
@@ -99,5 +100,18 @@ public class IntelijavaServices {
         Proyecto toReturn = existeProyecto(p);
         if(toReturn == null)return null;
         return toReturn.getDuenno();
+    }
+    
+    public boolean cambiarDuennoProyecto(String p, Usuario user){
+        Proyecto toReturn = existeProyecto(p);
+        if(toReturn == null)return false;
+        else{
+            try{
+                toReturn.setDuenno(user);
+                return true;
+            }catch(EntitiesException ex){
+                return false;
+            }
+        }
     }
 }
