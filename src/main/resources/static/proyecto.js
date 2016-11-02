@@ -35,6 +35,21 @@ function enviarInvitacion(){
     stompClient.send("/topic/waiting."+nombreInvitado, {}, JSON.stringify({miNombre:miNombre,nombreProy:nombreProy}));
 }
 
+function end() {
+    var usuario = sessionStorage.name;
+    var nombreProy = sessionStorage.nameProject;
+    $.post("/intelijava/proyecto/"+nombreProy+"/delcolaborador/",usuario, function(){
+        redireccionar();
+        disconnect();
+    }).fail(function(){
+        alert("El usuario ya existe");
+    });
+}
+
+function redireccionar() {
+    window.location.href="index.html";
+}
+
 function disconnect() {
     if (stompClient != null) {
         $("#connect").prop("disabled", false);

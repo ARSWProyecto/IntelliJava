@@ -61,4 +61,26 @@ public class IntelijavaServices {
         }
         return resp;
     }
+    
+    public boolean delUsuario(Usuario u){
+        boolean resp=false;
+        for (int i = 0; i < usersArray.size() && !resp; i++) {
+            if(usersArray.get(i).getNombre().equals(u.getNombre())){
+                resp=true;
+                usersArray.remove(i);
+            }
+        }
+        return resp;
+    }
+    
+    public boolean delProyecto(Proyecto p){
+        boolean resp=false;
+        for (int i = 0; i < projectsArray.size() && !resp; i++) {
+            if(projectsArray.get(i).getNombre().equals(p.getNombre())){
+                resp=true;
+                projectsArray.remove(i);
+            }
+        }
+        return resp;
+    }
 }
