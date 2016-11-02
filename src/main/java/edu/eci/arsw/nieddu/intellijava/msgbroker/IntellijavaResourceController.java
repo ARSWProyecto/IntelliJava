@@ -8,6 +8,8 @@ package edu.eci.arsw.nieddu.intellijava.msgbroker;
 import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
 import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,14 +36,15 @@ public class IntellijavaResourceController {
     SimpMessagingTemplate msgt;
     
     @RequestMapping(path = "/colaborador",method = RequestMethod.POST)
-    public ResponseEntity<?> manejadorPost(@RequestBody String nombre) throws EntitiesException {
+    public ResponseEntity<?> manejadorPost(@RequestBody String nombre) throws EntitiesException, UnsupportedEncodingException {
         //registrar usuario
+        System.out.println("Usuario "+nombre);
         Usuario u = new Usuario(nombre);
         boolean created = ins.addUser(u);
         if(created){
-            return new ResponseEntity<>(HttpStatus.CREATED);  
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);  
         }else{
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Error",HttpStatus.NOT_FOUND);
         }
     }
     
