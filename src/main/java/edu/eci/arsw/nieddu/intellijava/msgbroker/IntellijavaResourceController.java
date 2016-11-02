@@ -66,6 +66,7 @@ public class IntellijavaResourceController {
         Usuario u=ins.existeUsuario(usuario);
         boolean realizado=false;
         if(u.esDuenno() && p.getColaboradores().size()<1){
+            ins.delUsuario(u);
             System.out.println("Borrando proyecto");
             ins.delProyecto(p);
             realizado=true;

@@ -30,44 +30,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <script src="/webjars/bootstrap/bootstrap.min.js"></script>
         <script src="/log.js"></script>
     </head>
-
-
-<!--
     <body>
         <div class="container">
-            <h3><span class="label label-primary">Bienvenido a IntelliJava</span></h3>
-                <div class="form-group">
-                    <input id="nombre" type="text" class="form-control" placeholder="User name">
+            <div class="page-lock">
+                <div class="page-logo">
+                    <a class="brand" href="index.html">
+                        <img src="logo.png" alt="logo"/>
+                    </a>
                 </div>
-                <button class="btn btn-default" onclick="guardarNombre()" >Submit</button>
+                <div class="page-body">
+                    <div class="lock-head">
+                        Inicia sesión
+                    </div>
+                    <div class="lock-body text-center">
+                        <h4>Ingresa tu usuario</h4>
+                        <div class="form-group">
+                            <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="User" id="nombre"/>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-success uppercase" onclick="guardarNombre()">Login</button>
+                        </div>
+                    </div>
+                    <div class="lock-bottom">
+                        Copyright 2016.
+                    </div>
+                </div>
+            </div>
         </div>
-    </body>-->
-<body>
-<div class="container">
-	<div class="page-lock">
-        <div class="page-logo">
-    		<a class="brand" href="index.html">
-    		<img src="logo.png" alt="logo"/>
-    		</a>
-    	</div>
-    	<div class="page-body">
-    		<div class="lock-head">
-    			 Inicia sesión
-    		</div>
-    		<div class="lock-body text-center">
-    				<h4>Ingresa tu usuario</h4>
-    				<div class="form-group">
-    					<input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="User" id="nombre"/>
-    				</div>
-    				<div class="form-actions">
-    					<button class="btn btn-success uppercase" onclick="guardarNombre()">Login</button>
-    				</div>
-    		</div>
-    		<div class="lock-bottom">
-    			Copyright 2016.
-    		</div>
-    	</div>
-    </div>
-</div>
-</body>
+    </body>
 </html>
