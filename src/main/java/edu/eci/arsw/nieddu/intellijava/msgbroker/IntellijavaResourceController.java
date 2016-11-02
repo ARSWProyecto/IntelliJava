@@ -9,7 +9,6 @@ import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
 import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
 import java.util.List;
-import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,9 +36,6 @@ public class IntellijavaResourceController {
     @RequestMapping(path = "/colaborador",method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPost(@RequestBody String nombre) throws EntitiesException {
         //registrar usuario
-        System.out.println(nombre);
-        nombre = Jsoup.parse(nombre).text();
-        System.out.println(nombre);
         Usuario u = new Usuario(nombre);
         boolean created = ins.addUser(u);
         if(created){

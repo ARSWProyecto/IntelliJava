@@ -5,7 +5,7 @@ function connect() {
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/waiting.' + sessionStorage.name.nombre, function (data) {
+        stompClient.subscribe('/topic/waiting.' + sessionStorage.name, function (data) {
             var theObject = JSON.parse(data.body);
             console.log(theObject.miNombre + " " + theObject.nombreProy);
             var irAProyecto = confirm(theObject.miNombre + " te ha invitado a su proyecto " + theObject.nombreProy + " ¿Aceptas?");
@@ -42,7 +42,7 @@ function guardarProyecto() {
     var nombreProyecto = $("#nombreProyecto").val();
     var Duenno = sessionStorage.name;
     $.post("/intelijava/proyecto/"+nombreProyecto, Duenno, function () {
-        sessionStorage.nameProject = new Proyecto(nombreProyecto, Duenno);
+        sessionStorage.nameProject = nombreProyecto;
         redireccionar();
     }).fail(function () {
         alert("El proyecto ya existe");
@@ -51,7 +51,7 @@ function guardarProyecto() {
 
 $(document).ready(
         function () {
-            $("#nombre").html("Esta logueado como " + sessionStorage.name.nombre);
+            $("#nombre").html("Esta logueado como " + sessionStorage.name);
             connect();
         }
 );
