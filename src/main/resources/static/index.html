@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="webjars/bootstrap/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="index.css" type="text/css"/>
         <script src="/webjars/jquery/jquery.min.js"></script>
         <script src="/webjars/sockjs-client/sockjs.min.js"></script>
         <script src="/webjars/stomp-websocket/stomp.min.js"></script>
@@ -31,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </head>
 
 
-
+<!--
     <body>
         <div class="container">
             <h3><span class="label label-primary">Bienvenido a IntelliJava</span></h3>
@@ -40,5 +41,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </div>
                 <button class="btn btn-default" onclick="guardarNombre()" >Submit</button>
         </div>
-    </body>
+    </body>-->
+<body>
+<div class="container">
+	<div class="page-lock">
+        <div class="page-logo">
+    		<a class="brand" href="index.html">
+    		<img src="logo.png" alt="logo"/>
+    		</a>
+    	</div>
+    	<div class="page-body">
+    		<div class="lock-head">
+    			 Inicia sesión
+    		</div>
+    		<div class="lock-body text-center">
+    				<h4>Ingresa tu usuario</h4>
+    				<div class="form-group">
+    					<input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="User" id="nombre"/>
+    				</div>
+    				<div class="form-actions">
+    					<button class="btn btn-success uppercase" onclick="guardarNombre()">Login</button>
+    				</div>
+    		</div>
+    		<div class="lock-bottom">
+    			Copyright 2016.
+    		</div>
+    	</div>
+    </div>
+</div>
+</body>
 </html>
