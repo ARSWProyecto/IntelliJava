@@ -11,7 +11,6 @@ function connect() {
             var irAProyecto = confirm(theObject.miNombre + " te ha invitado a su proyecto " + theObject.nombreProy + " ¿Aceptas?");
             if (irAProyecto) {
                 //hacer post
-                var nombreProyecto = theObject.nombreProy;
                 $.post("/intelijava/proyecto/"+theObject.nombreProy+"/colaborador/",sessionStorage.name, function () {
                     sessionStorage.nameProject = theObject.nombreProy;
                     redireccionar();

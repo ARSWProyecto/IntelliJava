@@ -8,6 +8,7 @@ package edu.eci.arsw.nieddu.intellijava.msgbroker;
 import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
 import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -92,5 +93,28 @@ public class IntellijavaResourceController {
         }else{
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+    
+    @RequestMapping(path="/colaborador", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorUsuario(){
+        return new ResponseEntity<>(ins.usuarios(), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(path = "/proyecto/{nombreP}/colaborador", method = RequestMethod.GET)
+    public ResponseEntity<?> colaboradoresProyecto(@PathVariable String nombreP){
+        List<Usuario> p= ins.colaboradores(nombreP);
+        if(p==null)return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        else{
+            return new ResponseEntity<>(p,HttpStatus.ACCEPTED);
+        }
+    }
+    
+    @RequestMapping(path = "/proyecto/{nombreP}/duenno", method = RequestMethod.GET)
+    public ResponseEntity<?> duennoProyecto(@PathVariable String nombreP){
+        Usuario p = ins.getDuennoProyecto(nombreP);
+        if(p==null)return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        else{
+            return new ResponseEntity<>(p,HttpStatus.ACCEPTED);
+        }        
     }
 }
