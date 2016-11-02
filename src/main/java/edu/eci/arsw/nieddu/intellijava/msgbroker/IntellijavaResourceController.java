@@ -51,6 +51,7 @@ public class IntellijavaResourceController {
         Usuario u = ins.existeUsuario(usuario);
         if(p!=null && u!=null){
             p.addColaborador(u);
+            u.setProyectoActual(p);
             return new ResponseEntity<>(HttpStatus.CREATED);  
         }else{
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -63,8 +64,7 @@ public class IntellijavaResourceController {
         Proyecto p=ins.existeProyecto(nombreP);
         Usuario u=ins.existeUsuario(usuario);
         boolean realizado=false;
-        System.out.println("el usuario es "+u.getNombre()+" los colaboradores son "+p.getColaboradores().size()+" es duenno "+u.esDuenno());
-        if(p.getDuenno().getNombre().equals(u.getNombre()) && p.getColaboradores().size()<1){
+        if(u.esDuenno() && p.getColaboradores().size()<1){
             System.out.println("Borrando proyecto");
             ins.delProyecto(p);
             realizado=true;
@@ -85,6 +85,7 @@ public class IntellijavaResourceController {
         //registrar proyecto con su Duenno
         Usuario u = ins.existeUsuario(usuario);
         Proyecto p = new Proyecto(nombreP, u);
+        u.setProyectoActual(p);
         boolean created=ins.addProject(p);
         if(created){
             return new ResponseEntity<>(HttpStatus.CREATED);
