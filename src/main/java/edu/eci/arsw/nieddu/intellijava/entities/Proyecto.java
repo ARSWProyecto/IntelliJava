@@ -50,6 +50,21 @@ public class Proyecto {
         if(u==null)throw new EntitiesException(EntitiesException.PROYECTO_ADICION_USUARIOVACIO);
         colaboradores.add(u);
     }
+    
+    public void delColaborador(Usuario u) throws EntitiesException{
+        if(u==null)throw new EntitiesException(EntitiesException.PROYECTO_ADICION_USUARIOVACIO);
+        boolean find=false;
+        if(u.esDuenno() && colaboradores.size()>0){
+            u.delegarProyecto(colaboradores.get(0));
+        }else{
+            for (int i = 0; i < colaboradores.size() && !find; i++) {
+                if(colaboradores.get(i).getNombre().equals(u.getNombre())){
+                    find=true;
+                    colaboradores.remove(i);
+                }
+            }
+        }
+    }
 
     public ArrayList<Tarea> getTareas() {
         return tareas;

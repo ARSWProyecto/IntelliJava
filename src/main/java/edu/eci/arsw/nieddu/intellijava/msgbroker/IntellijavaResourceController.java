@@ -38,10 +38,8 @@ public class IntellijavaResourceController {
         Usuario u = new Usuario(nombre);
         boolean created = ins.addUser(u);
         if(created){
-            //System.out.println("Creado");
             return new ResponseEntity<>(HttpStatus.CREATED);  
         }else{
-            //System.out.println("No creado");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -55,7 +53,29 @@ public class IntellijavaResourceController {
             p.addColaborador(u);
             return new ResponseEntity<>(HttpStatus.CREATED);  
         }else{
-            //System.out.println("No creado");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    @RequestMapping(path = "/proyecto/{nombreP}/delcolaborador",method = RequestMethod.POST)
+    public ResponseEntity<?> delColaborador(@PathVariable String nombreP, @RequestBody String usuario) throws EntitiesException {
+        //registrar usuario
+        Proyecto p=ins.existeProyecto(nombreP);
+        Usuario u=ins.existeUsuario(usuario);
+        boolean realizado=false;
+        System.out.println("el usuario es "+u.getNombre()+" los colaboradores son "+p.getColaboradores().size()+" es duenno "+u.esDuenno());
+        if(p.getDuenno().getNombre().equals(u.getNombre()) && p.getColaboradores().size()<1){
+            System.out.println("Borrando proyecto");
+            ins.delProyecto(p);
+            realizado=true;
+        }else{
+            System.out.println("Borrando usuario");
+            p.delColaborador(u);
+            ins.delUsuario(u);
+            realizado=true;
+        }if(realizado){
+            return new ResponseEntity<>(HttpStatus.CREATED);  
+        }else{
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -71,8 +91,5 @@ public class IntellijavaResourceController {
         }else{
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        
     }
-    
-    
 }
