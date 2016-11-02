@@ -5,7 +5,7 @@ function guardarNombre(){
         sessionStorage.name = nombre;
         redireccionar();
     }).fail(function(){
-        alert("El usuario ya existe");
+        alert("El usuario no esta disponible");
     });
 }
 
