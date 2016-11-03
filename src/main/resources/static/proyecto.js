@@ -11,16 +11,19 @@ function connect() {
         stompClient.subscribe('/topic/project.' + sessionStorage.nameProject, function (data) {
             var obj = JSON.parse(data.body);
             console.log(sessionStorage.name);
+            
             if (obj.author != sessionStorage.name) {
                 /*var patches = dmp.patch_fromText(obj.text);
                 text1 = $("#orig").val();
-                //cursor = editor.selection.getCursor();
+                
                 //console.log(cursor);
                 var results = dmp.patch_apply(patches, text1);
                 console.log(patches);
                 $("#orig").val(results[0]);
                 editor.setValue(results[0], 1);*/
+                
                 editor.setValue(obj.text, 1);
+                editor.moveCursorTo(sessionStorage.cursor.row, sessionStorage.cursor.column-1);
             }
             /*else {
                 $("#orig").val(editor.getValue());
@@ -143,6 +146,7 @@ $(document).ready(
                 var patch_list = dmp.patch_make(text1, text2, diff);
                 patch_text = dmp.patch_toText(patch_list);
                 stompClient.send("/topic/project." + sessionStorage.nameProject, {}, JSON.stringify({text: patch_text, author: sessionStorage.name}));*/
+                sessionStorage.cursor = editor.getCursorPosition();
                 stompClient.send("/app/project." + sessionStorage.nameProject, {}, JSON.stringify({text: editor.getValue(), author: sessionStorage.name}));
             });
         }
