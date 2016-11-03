@@ -48,7 +48,15 @@ function borrarColaborador() {
             var nombreInvitado = $("#Bcolaborador").val();
             if (nombreInvitado != sessionStorage.name) {
                 var nombreProy = sessionStorage.nameProject;
-                $.post("/intelijava/proyecto/" + nombreProy + "/delcolaborador/", nombreInvitado, function () {});
+                //$.post("/intelijava/proyecto/" + nombreProy + "/delcolaborador/", nombreInvitado, function () {});
+                $.ajax({
+                    type: 'DELETE', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
+                    url: "/intelijava/proyecto/" + nombreProy + "/" + nombreInvitado, // A valid URL
+                    headers: {"X-HTTP-Method-Override": "DELETE", "Content-Type": "application/json"}
+                }).fail(function (response) {
+                    console.log(response);
+                    alert(response.responseText);
+                })
             }
         } else {
             alert("No eres el dueño de este proyecto");
@@ -61,10 +69,9 @@ function end() {
     var usuario = sessionStorage.name;
     var nombreProy = sessionStorage.nameProject;
     $.ajax({
-        type: 'POST', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
-        url: "/intelijava/proyecto/" + nombreProy + "/delcolaborador/", // A valid URL
-        headers: {"X-HTTP-Method-Override": "POST", "Content-Type": "application/json"},
-        data: usuario
+        type: 'DELETE', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
+        url: "/intelijava/proyecto/" + nombreProy + "/"+ usuario, // A valid URL
+        headers: {"X-HTTP-Method-Override": "DELETE", "Content-Type": "application/json"}
     }).fail(function (response) {
         console.log(response);
         alert(response.responseText);
@@ -78,7 +85,7 @@ function end() {
      });*/
 }
 
-function desconectar(){
+function desconectar() {
     redireccionar();
     disconnect();
 }
