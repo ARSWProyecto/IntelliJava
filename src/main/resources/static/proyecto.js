@@ -25,9 +25,11 @@ function connect() {
             }
         });
         stompClient.subscribe('/topic/waitingBan.' + sessionStorage.nameProject, function (data) {
-            var theObject = JSON.parse(data);
+            console.log(data);
+            var theObject = JSON.parse(data.body);
+            console.log(theObject);
             var nombre = sessionStorage.name;
-            if (data.name == nombre){
+            if (theObject.name == nombre){
                 alert("Has sido eliminado del proyecto");
                 desconectar();
             }
@@ -66,13 +68,13 @@ function borrarColaborador() {
                     console.log(response);
                     alert(response.responseText);
                 }).then(function(){
+                    stompClient.send("/topic/waitingBan." + sessionStorage.nameProject, {}, JSON.stringify({name: nombreInvitado}));
                     alert("Has baneado exitosamente a "+nombreInvitado);
                 });
             }
         } else {
             alert("No eres el dueño de este proyecto");
         }
-
     });
 }
 
@@ -97,6 +99,9 @@ function end() {
 }
 
 function desconectar() {
+    sessionStorage.removeItem("nameProject");
+    sessionStorage.removeItem("name");
+    //sessionStorage.name = null;
     redireccionar();
     disconnect();
 }
@@ -117,7 +122,11 @@ function disconnect() {
 
 $(document).ready(
         function () {
+            if(sessionStorage.name==null || sessionStorage.nameProject==null){
+                redireccionar();
+            }
             $("#titulo").html(sessionStorage.nameProject);
+            $("#nombre_usuario").html("Hola, "+sessionStorage.name+" <span class='caret'></span>");
             //$("#colaboran").html(sessionStorage.)
             connect();
             editor = ace.edit("text");
