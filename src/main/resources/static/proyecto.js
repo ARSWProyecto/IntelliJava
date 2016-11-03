@@ -53,7 +53,6 @@ function borrarColaborador() {
         } else {
             alert("No eres el dueño de este proyecto");
         }
-
     });
 }
 
@@ -100,6 +99,7 @@ function disconnect() {
 $(document).ready(
         function () {
             $("#titulo").html(sessionStorage.nameProject);
+            $("#nombre_usuario").html("Hola, "+sessionStorage.name);
             //$("#colaboran").html(sessionStorage.)
             connect();
             editor = ace.edit("text");
