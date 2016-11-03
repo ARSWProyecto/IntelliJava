@@ -82,6 +82,9 @@ function refrescar() {
 
 $(document).ready(
         function () {
+            if(sessionStorage.name==null){
+                window.location.href = "index.html";
+            }
             $("#nombre").html("Esta logueado como " + sessionStorage.name);
             connect();
         }

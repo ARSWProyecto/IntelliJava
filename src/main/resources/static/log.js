@@ -17,8 +17,18 @@ function redireccionar() {
 }
 
 function refrescar(){
-    console.log("entro")
+    console.log("entro");
     var nombre = $("#nombre").val();
     sessionStorage.name = nombre;
         redireccionar();
 }
+
+$(document).ready(
+        function () {
+            console.log(sessionStorage);
+            if(sessionStorage.name!=null){
+                console.log("entro");
+                redireccionar();
+            }
+        }
+);
