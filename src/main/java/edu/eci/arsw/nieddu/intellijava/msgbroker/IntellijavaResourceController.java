@@ -8,9 +8,6 @@ package edu.eci.arsw.nieddu.intellijava.msgbroker;
 import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
 import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,28 +33,37 @@ public class IntellijavaResourceController {
     SimpMessagingTemplate msgt;
     
     @RequestMapping(path = "/colaborador",method = RequestMethod.POST)
-    public ResponseEntity<?> manejadorPost(@RequestBody String nombre) throws EntitiesException, UnsupportedEncodingException {
+    public ResponseEntity<?> manejadorPost(@RequestBody String nombre){
         //registrar usuario
-        Usuario u = new Usuario(nombre);
-        boolean created = ins.addUser(u);
-        if(created){
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);  
-        }else{
-            return new ResponseEntity<>("Error",HttpStatus.NOT_FOUND);
+        Usuario u;
+        try {
+            u = new Usuario(nombre);
+            boolean created = ins.addUser(u);
+            if(created){
+                return new ResponseEntity<>(HttpStatus.ACCEPTED);  
+            }else{
+                return new ResponseEntity<>("No se ha podido crear el usuario",HttpStatus.NOT_FOUND);
+            }
+        } catch (EntitiesException ex) {
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
     
     @RequestMapping(path = "/proyecto/{nombreP}/colaborador",method = RequestMethod.POST)
-    public ResponseEntity<?> addColaborador(@PathVariable String nombreP, @RequestBody String usuario) throws EntitiesException {
+    public ResponseEntity<?> addColaborador(@PathVariable String nombreP, @RequestBody String usuario) {
         //registrar usuario
-        Proyecto p=ins.existeProyecto(nombreP);
-        Usuario u = ins.existeUsuario(usuario);
-        if(p!=null && u!=null){
-            p.addColaborador(u);
-            u.setProyectoActual(p);
-            return new ResponseEntity<>(HttpStatus.CREATED);  
-        }else{
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        try{
+            Proyecto p=ins.existeProyecto(nombreP);
+            Usuario u = ins.existeUsuario(usuario);
+            if(p!=null && u!=null){
+                p.addColaborador(u);
+                u.setProyectoActual(p);
+                return new ResponseEntity<>(HttpStatus.CREATED);  
+            }else{
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }catch (EntitiesException ex) {
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
     
@@ -83,16 +89,20 @@ public class IntellijavaResourceController {
     }
     
     @RequestMapping(path = "/proyecto/{nombreP}",method = RequestMethod.POST)
-    public ResponseEntity<?> addProyecto(@PathVariable String nombreP,@RequestBody String usuario) throws EntitiesException {
+    public ResponseEntity<?> addProyecto(@PathVariable String nombreP,@RequestBody String usuario) {
         //registrar proyecto con su Duenno
-        Usuario u = ins.existeUsuario(usuario);
-        Proyecto p = new Proyecto(nombreP, u);
-        u.setProyectoActual(p);
-        boolean created=ins.addProject(p);
-        if(created){
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }else{
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        try{
+            Usuario u = ins.existeUsuario(usuario);
+            Proyecto p = new Proyecto(nombreP, u);
+            u.setProyectoActual(p);
+            boolean created=ins.addProject(p);
+            if(created){
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }else{
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        } catch (EntitiesException ex) {
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
     
