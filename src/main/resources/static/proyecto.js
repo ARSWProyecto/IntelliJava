@@ -35,7 +35,7 @@ function enviarInvitacion() {
             var nombreProy = sessionStorage.nameProject;
             console.log(miNombre + " " + nombreProy);
             stompClient.send("/topic/waiting." + nombreInvitado, {}, JSON.stringify({miNombre: miNombre, nombreProy: nombreProy}));
-        }else{
+        } else {
             alert("No eres el dueño de este proyecto");
         }
 
@@ -45,12 +45,27 @@ function enviarInvitacion() {
 function end() {
     var usuario = sessionStorage.name;
     var nombreProy = sessionStorage.nameProject;
-    $.post("/intelijava/proyecto/" + nombreProy + "/delcolaborador/", usuario, function () {
-        redireccionar();
-        disconnect();
-    }).fail(function () {
-        alert("El usuario ya existe");
-    });
+    $.ajax({
+        type: 'POST', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
+        url: "/intelijava/proyecto/" + nombreProy + "/delcolaborador/", // A valid URL
+        headers: {"X-HTTP-Method-Override": "POST", "Content-Type": "application/json"},
+        data: usuario
+    }).fail(function (response) {
+        console.log(response);
+        alert(response.responseText);
+    }).then(desconectar);
+    /*
+     $.post("/intelijava/proyecto/" + nombreProy + "/delcolaborador/", usuario, function () {
+     redireccionar();
+     disconnect();
+     }).fail(function () {
+     alert("El usuario ya existe");
+     });*/
+}
+
+function desconectar(){
+    redireccionar();
+    disconnect();
 }
 
 function redireccionar() {
