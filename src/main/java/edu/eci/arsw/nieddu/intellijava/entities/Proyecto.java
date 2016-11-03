@@ -21,6 +21,8 @@ public class Proyecto {
 
     private ArrayList<Tarea> tareas;
     
+    private ArrayList<Paquete> paquetes;
+    
     
     public Proyecto(String nombre, Usuario duenno) throws EntitiesException{
         if(nombre==null || nombre.isEmpty()) throw new EntitiesException(EntitiesException.PROYECTO_SIN_NOMBRE);
@@ -29,9 +31,18 @@ public class Proyecto {
         this.nombre=nombre;
         colaboradores = new ArrayList<>();
         tareas = new ArrayList<>();
+        paquetes = new ArrayList<>();
+        Paquete defaultPackage = new Paquete("default");
+        Archivo defaultFile = new Archivo("default.java", "");
+        defaultPackage.addArchivo(defaultFile);
+        paquetes.add(defaultPackage);
     }
     public String getNombre() {
         return nombre;
+    }
+    
+    public Paquete getPaquete(int index){
+        return paquetes.get(index);
     }
 
     public void setNombre(String nombre) {

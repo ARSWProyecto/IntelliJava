@@ -5,10 +5,13 @@
  */
 package edu.eci.arsw.nieddu.intellijava.msgbroker;
 
+
+import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
 import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -22,12 +25,14 @@ public class STOMPMessagesHandler {
 
     @Autowired
     SimpMessagingTemplate msgt;
+    
+    @Autowired
+    IntelijavaServices ins;
 
-    @MessageMapping("/project")
-    public void getLine(String str) throws Exception {
-        System.out.println("Nuevo parche recibido en el servidor!:" + str);
-        //synchronized(str){
-        msgt.convertAndSend("/topic/project", str);
-        //}
+    @MessageMapping("/project.{nameProject}")
+    public void updateProject(@DestinationVariable String nameProject, String text) throws Exception {
+        Proyecto p = ins.existeProyecto(nameProject);
+        p.getPaquete(0).escribirEnArchivo(0, text);
+        msgt.convertAndSend("/topic/project."+nameProject, text);
     }
 }

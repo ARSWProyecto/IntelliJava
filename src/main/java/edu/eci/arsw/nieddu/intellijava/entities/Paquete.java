@@ -64,5 +64,8 @@ public class Paquete {
         if(!contiene(new Archivo(nombreArc, null)))throw new EntitiesException(EntitiesException.ARCHIVO_INEXISTENTE);
         archivos.remove(new Archivo(nombreArc,null));
     }
-
+    
+    public synchronized void escribirEnArchivo(int index, String text){
+        archivos.get(index).setTexto(text);
+    }
 }
