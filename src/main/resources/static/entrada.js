@@ -19,7 +19,10 @@ function connect() {
                 }).fail(function (response) {
                     console.log(response);
                     alert(response.responseText);
-                }).then(refrescar);
+                }).then(function(){
+                    sessionStorage.nameProject = theObject.nombreProy;
+                    redireccionar();
+                });
                 /*
                  $.post("/intelijava/proyecto/"+theObject.nombreProy+"/colaborador/",sessionStorage.name, function () {
                  sessionStorage.nameProject = theObject.nombreProy;
@@ -50,6 +53,8 @@ function redireccionar() {
 
 function guardarProyecto() {
     var Duenno = sessionStorage.name;
+    var nombreProyecto = $("#nombreProyecto").val();
+    //sessionStorage.nameProject = nombreProyecto;
     $.ajax({
         type: 'POST', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
         url: "/intelijava/proyecto/" + nombreProyecto, // A valid URL
@@ -73,6 +78,7 @@ function refrescar() {
     sessionStorage.nameProject = nombreProyecto;
     redireccionar();
 }
+
 
 $(document).ready(
         function () {

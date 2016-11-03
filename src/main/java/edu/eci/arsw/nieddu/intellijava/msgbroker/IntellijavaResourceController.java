@@ -38,7 +38,6 @@ public class IntellijavaResourceController {
     @RequestMapping(path = "/colaborador",method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPost(@RequestBody String nombre) throws EntitiesException, UnsupportedEncodingException {
         //registrar usuario
-        System.out.println("Usuario "+nombre);
         Usuario u = new Usuario(nombre);
         boolean created = ins.addUser(u);
         if(created){
@@ -68,13 +67,11 @@ public class IntellijavaResourceController {
         Proyecto p=ins.existeProyecto(nombreP);
         Usuario u=ins.existeUsuario(usuario);
         boolean realizado=false;
-        if(u.esDuenno() && p.getColaboradores().size()<1){
+        if(u.esDuenno() && p.getColaboradores().size()<2){
             ins.delUsuario(u);
-            System.out.println("Borrando proyecto");
             ins.delProyecto(p);
             realizado=true;
         }else{
-            System.out.println("Borrando usuario");
             p.delColaborador(u);
             ins.delUsuario(u);
             realizado=true;

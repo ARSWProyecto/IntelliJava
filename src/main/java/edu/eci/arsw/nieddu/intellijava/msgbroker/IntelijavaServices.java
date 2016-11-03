@@ -57,7 +57,7 @@ public class IntelijavaServices {
     public Proyecto existeProyecto(String p) {
         Proyecto resp = null;
         for(int i = 0 ; i < projectsArray.size() && resp==null; i++){
-            if(projectsArray.get(i).getNombre().equals(p)){
+            if(projectsArray.get(i).getNombre().equals(p)){    
                 resp = projectsArray.get(i);
             }
         }
