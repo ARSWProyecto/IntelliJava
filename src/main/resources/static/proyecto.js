@@ -66,6 +66,7 @@ function borrarColaborador() {
                     console.log(response);
                     alert(response.responseText);
                 }).then(function(){
+                    stompClient.send("/topic/waitingBan." + sessionStorage.nameProject, {}, JSON.stringify({name: nombreInvitado}));
                     alert("Has baneado exitosamente a "+nombreInvitado);
                 });
             }
