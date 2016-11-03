@@ -8,6 +8,9 @@ package edu.eci.arsw.nieddu.intellijava.msgbroker;
 import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
 import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -89,24 +92,28 @@ public class IntellijavaResourceController {
     }*/
     
     @RequestMapping(path = "/proyecto/{nombreP}/{colaborador}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> delColaborador(@PathVariable String nombreP, @PathVariable String colaborador) throws EntitiesException {
+    public ResponseEntity<?> delColaborador(@PathVariable String nombreP, @PathVariable String colaborador) {
         //registrar usuario
-        Proyecto p=ins.existeProyecto(nombreP);
-        Usuario u=ins.existeUsuario(colaborador);
-        boolean realizado=false;
-        if(u.esDuenno() && p.getColaboradores().size()<1){
-            ins.delUsuario(u);
-            ins.delProyecto(p);
-            realizado=true;
-        }else{
-            System.out.println("Borrando "+u.getNombre()+" del proyecto "+p.getNombre());
-            p.delColaborador(u);
-            ins.delUsuario(u);
-            realizado=true;
-        }if(realizado){
-            return new ResponseEntity<>(HttpStatus.CREATED);  
-        }else{
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        try{
+            Proyecto p=ins.existeProyecto(nombreP);
+            Usuario u=ins.existeUsuario(colaborador);
+            boolean realizado=false;
+            if(u.esDuenno() && p.getColaboradores().size()<1){
+                ins.delUsuario(u);
+                ins.delProyecto(p);
+                realizado=true;
+            }else{
+                System.out.println("Borrando "+u.getNombre()+" del proyecto "+p.getNombre());
+                p.delColaborador(u);
+                ins.delUsuario(u);
+                realizado=true;
+            }if(realizado){
+                return new ResponseEntity<>(HttpStatus.CREATED);  
+            }else{
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        } catch (EntitiesException ex) {
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
         }
     } 
     
