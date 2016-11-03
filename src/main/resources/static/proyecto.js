@@ -24,6 +24,15 @@ function connect() {
                 $("#orig").val(editor.getValue());
             }
         });
+        stompClient.subscribe('/topic/waitingBan.' + sessionStorage.nameProject, function (data) {
+            var theObject = JSON.parse(data);
+            var nombre = sessionStorage.name;
+            if (data.name == nombre){
+                alert("Has sido eliminado del proyecto");
+                desconectar();
+            }
+
+        });
     });
 }
 
@@ -56,7 +65,9 @@ function borrarColaborador() {
                 }).fail(function (response) {
                     console.log(response);
                     alert(response.responseText);
-                })
+                }).then(function(){
+                    alert("Has baneado exitosamente a "+nombreInvitado);
+                });
             }
         } else {
             alert("No eres el dueño de este proyecto");
@@ -70,7 +81,7 @@ function end() {
     var nombreProy = sessionStorage.nameProject;
     $.ajax({
         type: 'DELETE', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
-        url: "/intelijava/proyecto/" + nombreProy + "/"+ usuario, // A valid URL
+        url: "/intelijava/proyecto/" + nombreProy + "/" + usuario, // A valid URL
         headers: {"X-HTTP-Method-Override": "DELETE", "Content-Type": "application/json"}
     }).fail(function (response) {
         console.log(response);
