@@ -42,6 +42,21 @@ function enviarInvitacion() {
     });
 }
 
+function borrarColaborador() {
+    $.get("intelijava/proyecto/" + sessionStorage.nameProject + "/duenno").then(function (data) {
+        if (data.nombre == sessionStorage.name) {
+            var nombreInvitado = $("#Bcolaborador").val();
+            if (nombreInvitado != sessionStorage.name) {
+                var nombreProy = sessionStorage.nameProject;
+                $.post("/intelijava/proyecto/" + nombreProy + "/delcolaborador/", nombreInvitado, function () {});
+            }
+        } else {
+            alert("No eres el dueño de este proyecto");
+        }
+
+    });
+}
+
 function end() {
     var usuario = sessionStorage.name;
     var nombreProy = sessionStorage.nameProject;
