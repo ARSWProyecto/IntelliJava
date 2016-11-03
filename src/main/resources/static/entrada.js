@@ -11,13 +11,23 @@ function connect() {
             var irAProyecto = confirm(theObject.miNombre + " te ha invitado a su proyecto " + theObject.nombreProy + " ¿Aceptas?");
             if (irAProyecto) {
                 //hacer post
-                $.post("/intelijava/proyecto/"+theObject.nombreProy+"/colaborador/",sessionStorage.name, function () {
-                    sessionStorage.nameProject = theObject.nombreProy;
-                    redireccionar();
-                }).fail(function () {
-                    alert("No se ha podido añadir al proyecto");
-                });
-                
+                $.ajax({
+                    type: 'POST', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
+                    url: "/intelijava/proyecto/"+theObject.nombreProy+"/colaborador/", // A valid URL
+                    headers: {"X-HTTP-Method-Override": "POST", "Content-Type": "application/json"},
+                    data: sessionStorage.name
+                }).fail(function (response) {
+                    console.log(response);
+                    alert(response.responseText);
+                }).then(refrescar);
+                /*
+                 $.post("/intelijava/proyecto/"+theObject.nombreProy+"/colaborador/",sessionStorage.name, function () {
+                 sessionStorage.nameProject = theObject.nombreProy;
+                 redireccionar();
+                 }).fail(function () {
+                 alert("No se ha podido añadir al proyecto");
+                 });*/
+
             }
         });
     });
@@ -39,14 +49,29 @@ function redireccionar() {
 }
 
 function guardarProyecto() {
-    var nombreProyecto = $("#nombreProyecto").val();
     var Duenno = sessionStorage.name;
-    $.post("/intelijava/proyecto/"+nombreProyecto, Duenno, function () {
-        sessionStorage.nameProject = nombreProyecto;
-        redireccionar();
-    }).fail(function () {
-        alert("El proyecto ya existe");
-    });
+    $.ajax({
+        type: 'POST', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
+        url: "/intelijava/proyecto/" + nombreProyecto, // A valid URL
+        headers: {"X-HTTP-Method-Override": "POST", "Content-Type": "application/json"},
+        data: Duenno
+    }).fail(function (response) {
+        console.log(response);
+        alert(response.responseText);
+    }).then(refrescar);
+    /*
+     $.post("/intelijava/proyecto/"+nombreProyecto, Duenno, function () {
+     sessionStorage.nameProject = nombreProyecto;
+     redireccionar();
+     }).fail(function () {
+     alert("El proyecto ya existe");
+     });*/
+}
+
+function refrescar() {
+    var nombreProyecto = $("#nombreProyecto").val();
+    sessionStorage.nameProject = nombreProyecto;
+    redireccionar();
 }
 
 $(document).ready(
