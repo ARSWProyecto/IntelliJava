@@ -47,6 +47,7 @@ function enviarInvitacion() {
     $.get("intelijava/proyecto/" + sessionStorage.nameProject + "/duenno").then(function (data) {
         if (data.nombre == sessionStorage.name) {
             var nombreInvitado = $("#Ncolaborador").val();
+            $("#Ncolaborador").val("");
             var miNombre = sessionStorage.name;
             var nombreProy = sessionStorage.nameProject;
             console.log(miNombre + " " + nombreProy);
