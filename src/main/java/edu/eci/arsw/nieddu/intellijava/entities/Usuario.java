@@ -8,33 +8,44 @@ package edu.eci.arsw.nieddu.intellijava.entities;
 /**
  *
  * @author 2100038
- */ 
+ */
 public class Usuario {
 
-	private String nombre;
+    private String nombre;
 
-	private Proyecto proyectoActual;
-        
-        public Usuario(String nombre) throws EntitiesException{
-            if(nombre==null || nombre.isEmpty())throw new EntitiesException(EntitiesException.USUARIO_SIN_NOMBRE);
-            this.nombre = nombre;
+    private Proyecto proyectoActual;
+
+    public Usuario(String nombre) throws EntitiesException {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new EntitiesException(EntitiesException.USUARIO_SIN_NOMBRE);
         }
-        
-        public boolean esDuenno(){
-            boolean resp = proyectoActual==null?false:proyectoActual.getDuenno().nombre.equals(nombre);
-            return resp;
+        this.nombre = nombre;
+    }
+
+    /**
+     * Me dice si es dueño del proyecto al que pertenece
+     * @return true si es dueño, false de otro modo
+     */
+    public boolean esDuenno() {
+        boolean resp = proyectoActual == null ? false : proyectoActual.getDuenno().nombre.equals(nombre);
+        return resp;
+    }
+
+    public void setProyectoActual(Proyecto proj) {
+        proyectoActual = proj;
+    }
+
+    /**
+     * Delega su proyecto a otro usuario
+     * @param otherUser nuevo dueño del proyecto
+     * @throws EntitiesException si no es dueño
+     */
+    public void delegarProyecto(Usuario otherUser) throws EntitiesException {
+        if (!esDuenno()) {
+            throw new EntitiesException(EntitiesException.USUARIO_SIN_DERECHOS);
         }
-        
-        public void setProyectoActual(Proyecto proj){
-            proyectoActual=proj;
-        }
-        
-        public void delegarProyecto(Usuario otherUser) throws EntitiesException{ 
-            if(!esDuenno()){
-                throw new EntitiesException(EntitiesException.USUARIO_SIN_DERECHOS);
-            }
-            proyectoActual.setDuenno(otherUser);
-        }
+        proyectoActual.setDuenno(otherUser);
+    }
 
     public String getNombre() {
         return nombre;

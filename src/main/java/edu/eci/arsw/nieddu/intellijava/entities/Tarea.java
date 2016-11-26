@@ -29,26 +29,31 @@ public class Tarea {
     public void setCompleta(boolean completa) {
         this.completa = completa;
     }
-       
+
     /**
      * Constructor
+     *
      * @param descripcion de la tarea
-     * @throws TareaException si la descripcion es nula o vacia
+     * @throws EntitiesException si la descripcion es nula o vacia
      */
-    public Tarea(String descripcion) throws EntitiesException{
-        if(descripcion == null || descripcion.equals(""))throw new EntitiesException(EntitiesException.TAREA_SIN_DESCRIPCION);
-        this.descripcion=descripcion;
-        this.completa=false;
+    public Tarea(String descripcion) throws EntitiesException {
+        if (descripcion == null || descripcion.equals("")) {
+            throw new EntitiesException(EntitiesException.TAREA_SIN_DESCRIPCION);
+        }
+        this.descripcion = descripcion;
+        this.completa = false;
     }
 
     /**
      * Completa una tarea
-     * @throws TareaException si la tarea ya fue completada
+     *
+     * @throws EntitiesException si la tarea ya fue completada
      */
-    public void completar() throws EntitiesException{
-        if(isCompleta())throw new EntitiesException(EntitiesException.TAREA_COMPLETA);
+    public void completar() throws EntitiesException {
+        if (isCompleta()) {
+            throw new EntitiesException(EntitiesException.TAREA_COMPLETA);
+        }
         setCompleta(true);
     }
 
-    
 }

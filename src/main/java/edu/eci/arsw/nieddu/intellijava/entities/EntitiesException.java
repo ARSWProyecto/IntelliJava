@@ -9,8 +9,8 @@ package edu.eci.arsw.nieddu.intellijava.entities;
  *
  * @author CERONSANCHEZEDWINALE
  */
-public class EntitiesException extends Exception{
-    
+public class EntitiesException extends Exception {
+
     public final static String USUARIO_SIN_NOMBRE = "El usuario tiene que tener un nombre";
     public final static String USUARIO_SIN_DERECHOS = "El usuario no tiene permisos para delegar el proyecto actual";
     public final static String TAREA_COMPLETA = "La tarea ya fue completada";
@@ -23,9 +23,9 @@ public class EntitiesException extends Exception{
     public final static String ARCHIVO_REPETIDO = "Este archivo ya existe";
     public final static String ARCHIVO_INEXISTENTE = "Este archivo no existe";
     public final static String PAQUETE_SIN_NOMBRE = "El paquete no tiene nombre";
-    
-    
-    
+    public final static String PAQUETE_REPETIDO = "El paquete esta repetido";
+    public final static String PAQUETE_INEXISTENTE = "El paquete no existe";
+
     public EntitiesException(String message) {
         super(message);
     }
