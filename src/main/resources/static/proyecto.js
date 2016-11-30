@@ -126,6 +126,16 @@ function disconnect() {
     console.log("Disconnected");
 }
 
+function compilar(){
+    $.get("intelijava/proyecto/" + sessionStorage.nameProject + "/compilado").then(function (data) {
+        
+    });
+}
+
+function limpiarCompilacion(){
+    $("#resCompilacion").html("Procesando... Por favor espere.");
+}
+
 $(document).ready(
         function () {
             if(sessionStorage.name==null || sessionStorage.nameProject==null){
