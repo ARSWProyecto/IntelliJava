@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -112,6 +112,14 @@ public class IntelijavaServices {
             }catch(EntitiesException ex){
                 return false;
             }
+        }
+    }
+    
+    public Class compilarProyecto(Proyecto p, Usuario u)throws EntitiesException{
+        if(projectsArray.contains(p) && p.getColaboradores().contains(u)){
+            return p.compilar();
+        }else{
+            return null;
         }
     }
 }

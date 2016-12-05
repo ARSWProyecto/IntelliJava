@@ -6,6 +6,11 @@
 package edu.eci.arsw.nieddu.intellijava.entities;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import edu.eci.arsw.nieddu.intellijava.compiler.*;
+import java.net.URISyntaxException;
 
 /**
  *
@@ -43,7 +48,7 @@ public class Proyecto {
         tareas = new ArrayList<>();
         paquetes = new ArrayList<>();
         Paquete defaultPackage = new Paquete("default");
-        Archivo defaultFile = new Archivo("default.java", "");
+        Archivo defaultFile = new Archivo("Default", "");
         defaultPackage.addArchivo(defaultFile);
         paquetes.add(defaultPackage);
     }
@@ -194,5 +199,66 @@ public class Proyecto {
             throw new EntitiesException(EntitiesException.PAQUETE_REPETIDO);
         }
         paquetes.add(paquete);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 11 * hash + Objects.hashCode(this.nombre);
+        hash = 11 * hash + Objects.hashCode(this.duenno);
+        hash = 11 * hash + Objects.hashCode(this.colaboradores);
+        hash = 11 * hash + Objects.hashCode(this.tareas);
+        hash = 11 * hash + Objects.hashCode(this.paquetes);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Proyecto other = (Proyecto) obj;
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.duenno, other.duenno)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Compila el proyecto
+     *
+     * @return la clase compilada
+     * @throws EntitiesException si hay errores de compilacion
+     */
+    public Class compilar() throws EntitiesException {
+        try {
+            StringBuffer sourceCode = new StringBuffer();
+            sourceCode.append(paquetes.get(0).getArchivos().get(0).getTexto());
+            System.out.println(paquetes.get(0).getArchivos().get(0).getNombre() + " " + sourceCode.toString());
+            Class<?> aRetornar = InMemoryJavaCompiler.compile(paquetes.get(0).getArchivos().get(0).getNombre(), sourceCode.toString());
+            return aRetornar;
+        } catch (ClassFormatError| ClassNotFoundException | URISyntaxException ex) {
+            Logger.getLogger(Proyecto.class.getName()).log(Level.SEVERE, null, ex);
+            throw new EntitiesException(EntitiesException.ERROR_DE_COMPILACION);
+        }
+    }
+
+    public void modificarArchivo(int paquete, int archivo, String texto) throws EntitiesException {
+        if (paquete > paquetes.size()) {
+            throw new EntitiesException(EntitiesException.PAQUETE_INEXISTENTE);
+        }
+        if (archivo > paquetes.get(paquete).getArchivos().size()) {
+            throw new EntitiesException(EntitiesException.ARCHIVO_INEXISTENTE);
+        }
+        paquetes.get(paquete).escribirEnArchivo(archivo, texto);
     }
 }
