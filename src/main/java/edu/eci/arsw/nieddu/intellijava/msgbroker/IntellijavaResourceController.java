@@ -70,27 +70,6 @@ public class IntellijavaResourceController {
         }
     }
     
-    /*@RequestMapping(path = "/proyecto/{nombreP}/delcolaborador",method = RequestMethod.POST)
-    public ResponseEntity<?> delColaborador(@PathVariable String nombreP, @RequestBody String usuario) throws EntitiesException {
-        //registrar usuario
-        Proyecto p=ins.existeProyecto(nombreP);
-        Usuario u=ins.existeUsuario(usuario);
-        boolean realizado=false;
-        if(u.esDuenno() && p.getColaboradores().size()<1){
-            ins.delUsuario(u);
-            ins.delProyecto(p);
-            realizado=true;
-        }else{
-            p.delColaborador(u);
-            ins.delUsuario(u);
-            realizado=true;
-        }if(realizado){
-            return new ResponseEntity<>(HttpStatus.CREATED);  
-        }else{
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }*/
-    
     @RequestMapping(path = "/proyecto/{nombreP}/{colaborador}", method = RequestMethod.DELETE)
     public ResponseEntity<?> delColaborador(@PathVariable String nombreP, @PathVariable String colaborador) {
         //registrar usuario
