@@ -127,8 +127,8 @@ function disconnect() {
 }
 
 function compilar(){
-    $.get("intelijava/proyecto/" + sessionStorage.nameProject + "/compilado").then(function (data) {
-        
+    $.get("intelijava/proyecto/" + sessionStorage.nameProject + "/colaborador/"+ sessionStorage.name + "/compilado").then(function (data) {
+        $("#resCompilacion").html(data);
     });
 }
 

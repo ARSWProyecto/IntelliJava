@@ -52,6 +52,17 @@ public class IntellijavaResourceController {
         }
     }
     
+    @RequestMapping(path = "/proyecto/{nombreP}/colaborador/{nombreU}/compilado", method = RequestMethod.GET)
+    public ResponseEntity<?> compiladoDelProyecto(@PathVariable String nombreP, @PathVariable String nombreU) throws EntitiesException{
+        Proyecto p = ins.existeProyecto(nombreP);
+        Usuario u = ins.existeUsuario(nombreU);
+        System.out.println("Llegó a compilar: "+p+" "+u);
+        if(p==null || u==null)return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        else{
+            return new ResponseEntity<>(ins.compilarProyecto(p, u),HttpStatus.ACCEPTED);
+        }
+    }
+    
     @RequestMapping(path = "/proyecto/{nombreP}/colaborador",method = RequestMethod.POST)
     public ResponseEntity<?> addColaborador(@PathVariable String nombreP, @RequestBody String usuario) {
         //registrar usuario

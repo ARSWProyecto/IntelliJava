@@ -99,7 +99,7 @@ public class ProyectoTest {
             Proyecto p = new Proyecto("El proyecto", u);
             String aEscribir ="public class Default{}";
             p.modificarArchivo(0, 0, aEscribir);
-            Class<?> holi = p.compilar();
+            String holi = p.compilar();
         }catch(EntitiesException ex){
             Assert.fail("Lanzo exception "+ex.toString());
         }
@@ -113,7 +113,7 @@ public class ProyectoTest {
             Proyecto p = new Proyecto("El proyecto", u);
             String aEscribir ="public clas Default{}";
             p.modificarArchivo(0, 0, aEscribir);
-            Class<?> holi = p.compilar();
+            String holi = p.compilar();
             Assert.fail("Se esperaba excepcion");
         }catch(EntitiesException ex){
             //System.out.println(InMemoryJavaCompiler.RESULTADO);
