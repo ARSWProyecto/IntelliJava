@@ -239,17 +239,19 @@ public class Proyecto {
      * @return la clase compilada
      * @throws EntitiesException si hay errores de compilacion
      */
-    public String compilar() throws EntitiesException {
+    public String compilar() {
         InMemoryJavaCompiler jc = new InMemoryJavaCompiler(paquetes.get(0).getArchivos().get(0).getNombre(), paquetes.get(0).getArchivos().get(0).getTexto());
+        String aRetornar = "";
         try {
             System.out.println(paquetes.get(0).getArchivos().get(0).getNombre() + " " + paquetes.get(0).getArchivos().get(0).getTexto());
             jc.compile();
-            String aRetornar = jc.getResult();
+            aRetornar = jc.getResult();
             return aRetornar;
         } catch (ClassFormatError| ClassNotFoundException | URISyntaxException ex) {
             Logger.getLogger(Proyecto.class.getName()).log(Level.SEVERE, null, ex);
-            throw new EntitiesException(EntitiesException.ERROR_DE_COMPILACION+"\n"+jc.getResult());
+            aRetornar = EntitiesException.ERROR_DE_COMPILACION+"\n"+jc.getResult();
         }
+        return aRetornar;
     }
 
     public void modificarArchivo(int paquete, int archivo, String texto) throws EntitiesException {

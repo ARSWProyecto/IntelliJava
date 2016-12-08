@@ -114,11 +114,27 @@ public class ProyectoTest {
             String aEscribir ="public clas Default{}";
             p.modificarArchivo(0, 0, aEscribir);
             String holi = p.compilar();
-            Assert.fail("Se esperaba excepcion");
+            if(holi.startsWith(EntitiesException.ERROR_DE_COMPILACION)){
+                Assert.fail("Se esperaba excepcion");
+            }
         }catch(EntitiesException ex){
             //System.out.println(InMemoryJavaCompiler.RESULTADO);
-            Assert.assertEquals("No se tienen expeciones iguales", EntitiesException.ERROR_DE_COMPILACION, ex.getMessage());
-        }    
+            Assert.fail("No se esperaba excepcion");
+        }
+    }
+    
+    //clase de equivalencia 9, deberia compilar un archivo en blanco
+    @Test
+    public void deberiaCompilarArchivoEnBlanco(){
+        try{
+            Usuario u = new Usuario("Poshito");
+            Proyecto p = new Proyecto("El proyecto", u);
+            String aEscribir ="";
+            p.modificarArchivo(0, 0, aEscribir);
+            String holi = p.compilar();
+        }catch(EntitiesException ex){
+            Assert.fail("Lanzo exception "+ex.toString());
+        }
     }
 }
 

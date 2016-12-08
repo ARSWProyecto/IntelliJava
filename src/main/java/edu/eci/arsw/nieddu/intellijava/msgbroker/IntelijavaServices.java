@@ -115,7 +115,7 @@ public class IntelijavaServices {
         }
     }
     
-    public String compilarProyecto(Proyecto p, Usuario u)throws EntitiesException{
+    public String compilarProyecto(Proyecto p, Usuario u) {
         if(projectsArray.contains(p) && (p.getColaboradores().contains(u) || p.getDuenno().getNombre().equals(u.getNombre()))){
             System.out.println("Proyecto válido");
             return p.compilar();
