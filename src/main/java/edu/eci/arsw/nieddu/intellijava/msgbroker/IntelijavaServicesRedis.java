@@ -124,7 +124,7 @@ public class IntelijavaServicesRedis {
         }
     }
     
-    public Class compilarProyecto(Proyecto p, String u)throws EntitiesException{
+    public String compilarProyecto(Proyecto p, String u)throws EntitiesException{
         if(projectsArray.contains(p) && p.getColaboradores().contains(u)){
             return p.compilar();
         }else{

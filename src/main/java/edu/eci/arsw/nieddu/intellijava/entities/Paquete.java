@@ -135,12 +135,23 @@ public class Paquete {
     }
 
     /**
+     * Obtiene un archivo
+     *
+     * @param index del archivo a obtener
+     * @return El archivo solicitado
+     */
+    public synchronized Archivo obtenerArchivo(int index) {
+        return archivos.get(index);
+    }
+    
+    /**
      * Escribe en un archivo
      *
      * @param index del archivo a escribir
-     * @param text del archivo
+     * @param text el texto que se pondrá
      */
     public synchronized void escribirEnArchivo(int index, String text) {
+        System.out.println("Vamos a escribir: "+text);
         archivos.get(index).setTexto(text);
     }
 

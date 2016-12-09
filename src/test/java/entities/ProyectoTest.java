@@ -97,7 +97,7 @@ public class ProyectoTest {
             Proyecto p = new Proyecto("El proyecto", u);
             String aEscribir ="public class Default{}";
             p.modificarArchivo(0, 0, aEscribir);
-            Class<?> holi = p.compilar();
+            String holi = p.compilar();
         }catch(EntitiesException ex){
             Assert.fail("Lanzo exception "+ex.toString());
         }
@@ -111,12 +111,29 @@ public class ProyectoTest {
             Proyecto p = new Proyecto("El proyecto", u);
             String aEscribir ="public clas Default{}";
             p.modificarArchivo(0, 0, aEscribir);
-            Class<?> holi = p.compilar();
-            Assert.fail("Se esperaba excepcion");
+            String holi = p.compilar();
+            System.out.println(holi);
+            if(holi.isEmpty()){
+                Assert.fail("Se esperaba error");
+            }
         }catch(EntitiesException ex){
             //System.out.println(InMemoryJavaCompiler.RESULTADO);
-            Assert.assertEquals("No se tienen expeciones iguales", EntitiesException.ERROR_DE_COMPILACION, ex.getMessage());
-        }    
+            Assert.fail("No se esperaba excepcion");
+        }
+    }
+    
+    //clase de equivalencia 9, deberia compilar un archivo en blanco
+    @Test
+    public void deberiaCompilarArchivoEnBlanco(){
+        try{
+            String u = "Poshito";
+            Proyecto p = new Proyecto("El proyecto", u);
+            String aEscribir ="";
+            p.modificarArchivo(0, 0, aEscribir);
+            String holi = p.compilar();
+        }catch(EntitiesException ex){
+            Assert.fail("Lanzo exception "+ex.toString());
+        }
     }
 }
 

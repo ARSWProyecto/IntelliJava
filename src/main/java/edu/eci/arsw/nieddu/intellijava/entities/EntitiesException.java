@@ -25,7 +25,7 @@ public class EntitiesException extends Exception {
     public final static String PAQUETE_SIN_NOMBRE = "El paquete no tiene nombre";
     public final static String PAQUETE_REPETIDO = "El paquete esta repetido";
     public final static String PAQUETE_INEXISTENTE = "El paquete no existe";
-    public final static String ERROR_DE_COMPILACION = "Error al compilar";
+    public final static String ERROR_DE_COMPILACION = "Error al compilar: ";
 
     public EntitiesException(String message) {
         super(message);

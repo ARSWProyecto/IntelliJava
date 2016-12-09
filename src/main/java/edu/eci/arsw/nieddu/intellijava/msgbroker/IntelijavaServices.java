@@ -114,11 +114,12 @@ public class IntelijavaServices {
         }
     }
     
-    public Class compilarProyecto(Proyecto p, String u)throws EntitiesException{
-        if(projectsArray.contains(p) && p.getColaboradores().contains(u)){
+    public String compilarProyecto(Proyecto p, String u) {
+        if(projectsArray.contains(p) && (p.getColaboradores().contains(u) || p.getDuenno().equals(u))){
+            System.out.println("Proyecto válido");
             return p.compilar();
         }else{
-            return null;
+            return "El proyecto no es válido";
         }
     }
 }
