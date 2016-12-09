@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author Nieddu
  */
 
-@Service
+//@Service
 public class IntelijavaServices {
     
     public static CopyOnWriteArrayList<String> usersArray;
