@@ -7,10 +7,7 @@ package edu.eci.arsw.nieddu.intellijava.msgbroker;
 
 import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
-import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,24 +35,20 @@ public class IntellijavaResourceController {
     @RequestMapping(path = "/colaborador",method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPost(@RequestBody String nombre){
         //registrar usuario
-        Usuario u;
-        try {
-            u = new Usuario(nombre);
-            boolean created = ins.addUser(u);
-            if(created){
-                return new ResponseEntity<>(HttpStatus.ACCEPTED);  
-            }else{
-                return new ResponseEntity<>("No se ha podido crear el usuario",HttpStatus.NOT_FOUND);
-            }
-        } catch (EntitiesException ex) {
-            return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+        String u;
+        u = nombre;
+        boolean created = ins.addUser(u);
+        if(created){
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);  
+        }else{
+            return new ResponseEntity<>("No se ha podido crear el usuario",HttpStatus.NOT_FOUND);
         }
     }
     
     @RequestMapping(path = "/proyecto/{nombreP}/colaborador/{nombreU}/compilado", method = RequestMethod.GET)
     public ResponseEntity<?> compiladoDelProyecto(@PathVariable String nombreP, @PathVariable String nombreU) throws EntitiesException{
         Proyecto p = ins.existeProyecto(nombreP);
-        Usuario u = ins.existeUsuario(nombreU);
+        String u = ins.existeUsuario(nombreU);
         //System.out.println("Llegó a compilar: "+p+" "+u);
         if(p==null || u==null)return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else{
@@ -63,16 +56,21 @@ public class IntellijavaResourceController {
             return new ResponseEntity<>(resp,HttpStatus.ACCEPTED);
         }
     }
-    
+    /**
+     * agregar un colaborador
+     * @param nombreP
+     * @param usuario
+     * @return 
+     */
     @RequestMapping(path = "/proyecto/{nombreP}/colaborador",method = RequestMethod.POST)
     public ResponseEntity<?> addColaborador(@PathVariable String nombreP, @RequestBody String usuario) {
         //registrar usuario
         try{
             Proyecto p=ins.existeProyecto(nombreP);
-            Usuario u = ins.existeUsuario(usuario);
+            String u = ins.existeUsuario(usuario);
             if(p!=null && u!=null){
                 p.addColaborador(u);
-                u.setProyectoActual(p);
+                //u.setProyectoActual(p);
                 return new ResponseEntity<>(HttpStatus.CREATED);  
             }else{
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -87,14 +85,14 @@ public class IntellijavaResourceController {
         //registrar usuario
         try{
             Proyecto p=ins.existeProyecto(nombreP);
-            Usuario u=ins.existeUsuario(colaborador);
+            String u=ins.existeUsuario(colaborador);
             boolean realizado=false;
-            if(u.esDuenno() && p.getColaboradores().size()<1){
+            if(u.equals(p.getDuenno()) && p.getColaboradores().size()<1){
                 ins.delUsuario(u);
                 ins.delProyecto(p);
                 realizado=true;
             }else{
-                System.out.println("Borrando "+u.getNombre()+" del proyecto "+p.getNombre());
+                System.out.println("Borrando "+u+" del proyecto "+p.getNombre());
                 p.delColaborador(u);
                 ins.delUsuario(u);
                 realizado=true;
@@ -112,9 +110,8 @@ public class IntellijavaResourceController {
     public ResponseEntity<?> addProyecto(@PathVariable String nombreP,@RequestBody String usuario) {
         //registrar proyecto con su Duenno
         try{
-            Usuario u = ins.existeUsuario(usuario);
+            String u = ins.existeUsuario(usuario);
             Proyecto p = new Proyecto(nombreP, u);
-            u.setProyectoActual(p);
             boolean created=ins.addProject(p);
             if(created){
                 return new ResponseEntity<>(HttpStatus.CREATED);
@@ -133,7 +130,7 @@ public class IntellijavaResourceController {
     
     @RequestMapping(path = "/proyecto/{nombreP}/colaborador", method = RequestMethod.GET)
     public ResponseEntity<?> colaboradoresProyecto(@PathVariable String nombreP){
-        List<Usuario> p= ins.colaboradores(nombreP);
+        List<String> p= ins.colaboradores(nombreP);
         if(p==null)return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else{
             return new ResponseEntity<>(p,HttpStatus.ACCEPTED);
@@ -142,10 +139,10 @@ public class IntellijavaResourceController {
     
     @RequestMapping(path = "/proyecto/{nombreP}/duenno", method = RequestMethod.GET)
     public ResponseEntity<?> duennoProyecto(@PathVariable String nombreP){
-        Usuario p = ins.getDuennoProyecto(nombreP);
-        if(p==null)return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        String duenno = ins.getDuennoProyecto(nombreP);
+        if(duenno==null)return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else{
-            return new ResponseEntity<>(p,HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(duenno,HttpStatus.ACCEPTED);
         }        
     }
     
@@ -160,7 +157,7 @@ public class IntellijavaResourceController {
     }
     
     @RequestMapping(path = "/proyecto/{nombreP}/duenno", method = RequestMethod.PUT)
-    public ResponseEntity<?> cambiarDuennoProyecto(@PathVariable String nombreP, @RequestBody Usuario usuario){
+    public ResponseEntity<?> cambiarDuennoProyecto(@PathVariable String nombreP, @RequestBody String usuario){
         if(ins.cambiarDuennoProyecto(nombreP, usuario)){
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }else{

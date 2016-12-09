@@ -5,11 +5,16 @@
  */
 package edu.eci.arsw.nieddu.intellijava.msgbroker;
 
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonAnyFormatVisitor;
 import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Transaction;
 
 /**
  *
@@ -17,36 +22,47 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class IntelijavaServices {
+public class IntelijavaServicesRedis {
     
-    public static CopyOnWriteArrayList<String> usersArray;
-    public static CopyOnWriteArrayList<Proyecto> projectsArray;
+    //public static CopyOnWriteArrayList<String> usersArray;
+    //public static CopyOnWriteArrayList<Proyecto> projectsArray;
     
-    public IntelijavaServices(){
-        usersArray= new CopyOnWriteArrayList();
-        projectsArray= new CopyOnWriteArrayList<>();
+    public IntelijavaServicesRedis(){
+        //usersArray= new CopyOnWriteArrayList();
+        //projectsArray= new CopyOnWriteArrayList<>();
     }
     
     public boolean addUser(String u){
-        boolean resp;
-        if(resp = existeUsuario(u)==null){
-            usersArray.add(u);
+        boolean resp;      
+        Jedis jedis = JedisUtil.getPool().getResource();
+        Map<String, String> usuario = new HashMap<>();
+        usuario.put("nombre", u);
+        if(resp = existeUsuario(u) == null){
+            jedis.hmset("usuario:"+u, usuario);
         }
         return resp;
     }
 
-    public String existeUsuario(String u) {
+    public String existeUsuario(String nombre) {
         String resp = null;
-        for(int i = 0 ; i < usersArray.size() && resp==null; i++){
-            if(usersArray.get(i).equals(u)){
-                resp = usersArray.get(i);
-            }
+        Jedis jedis = JedisUtil.getPool().getResource();
+        Map<String, String> usuario = jedis.hgetAll("nombre:"+nombre);
+        if(usuario != null){            
+            resp = nombre;
         }
         return resp;
     }
 
     public boolean addProject(Proyecto p){
         boolean resp;
+        Jedis jedis = JedisUtil.getPool().getResource();
+        Map<String, String> proyecto = new HashMap<>();
+        proyecto.put("nombre", p.getNombre());
+        proyecto.put("duenno", p.getDuenno());
+        proyecto.put("colaboradores", "");
+        proyecto.put("tareas","");
+        proyecto.put("paquetes", "");
+        
         if(resp = existeProyecto(p.getNombre())==null){
             projectsArray.add(p);
         }
@@ -97,7 +113,6 @@ public class IntelijavaServices {
     
     public String getDuennoProyecto(String p){
         Proyecto toReturn = existeProyecto(p);
-        //System.out.println(toReturn.getDuenno());
         if(toReturn == null)return null;
         return toReturn.getDuenno();
     }
@@ -115,12 +130,11 @@ public class IntelijavaServices {
         }
     }
     
-    public String compilarProyecto(Proyecto p, String u) {
-        if(projectsArray.contains(p) && (p.getColaboradores().contains(u) || p.getDuenno().equals(u))){
-            System.out.println("Proyecto válido");
+    public String compilarProyecto(Proyecto p, String u)throws EntitiesException{
+        if(projectsArray.contains(p) && p.getColaboradores().contains(u)){
             return p.compilar();
         }else{
-            return "El proyecto no es válido";
+            return null;
         }
     }
 }
