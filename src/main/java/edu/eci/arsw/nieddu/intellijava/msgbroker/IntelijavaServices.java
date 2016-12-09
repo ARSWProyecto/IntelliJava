@@ -122,4 +122,9 @@ public class IntelijavaServices implements Services{
             return "El proyecto no es válido";
         }
     }
+
+    @Override
+    public Boolean updateTextProject(Proyecto p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
