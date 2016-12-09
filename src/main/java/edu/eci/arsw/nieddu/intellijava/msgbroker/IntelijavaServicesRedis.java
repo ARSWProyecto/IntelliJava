@@ -36,7 +36,7 @@ public class IntelijavaServicesRedis implements Services{
         usuario.put("nombre", u);
         if (resp = (existeUsuario(u) == null)) {
             jedis.hmset("usuario:" + u, usuario);
-            System.out.println("agrego usuario");
+            System.out.println("agrego usuario "+u);
         }
         System.out.println(resp);
         jedis.close();
@@ -87,7 +87,7 @@ public class IntelijavaServicesRedis implements Services{
     public boolean delUsuario(String u) {
         boolean resp = false;
         Jedis jedis = JedisUtil.getPool().getResource();
-        Long res = jedis.hdel("usuario:"+u);
+        Long res = jedis.del("usuario:"+u);
         if(res>0){
             resp = true;
         }
@@ -98,7 +98,7 @@ public class IntelijavaServicesRedis implements Services{
     public boolean delProyecto(Proyecto p) {
         boolean resp = false;
         Jedis jedis = JedisUtil.getPool().getResource();
-        Long res = jedis.hdel("proyecto:"+p.getNombre());
+        Long res = jedis.del("proyecto:"+p.getNombre());
         if(res>0){
             resp = true;
         }
