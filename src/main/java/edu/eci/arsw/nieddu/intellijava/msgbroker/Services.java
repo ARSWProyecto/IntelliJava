@@ -24,8 +24,11 @@ public interface Services {
     public String existeUsuario(String u);
 
     public boolean addProject(Proyecto p);
-
+    
     public Proyecto existeProyecto(String p);
+    
+    public Boolean updateTextProject(Proyecto p);
+    
     public boolean delUsuario(String u);
     
     public boolean delProyecto(Proyecto p);

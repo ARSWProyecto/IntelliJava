@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Transaction;
 
 /**
  *
@@ -84,6 +85,26 @@ public class IntelijavaServicesRedis implements Services{
         return resp;
     }
     
+    @Override
+    public Boolean updateTextProject(Proyecto p) {
+        boolean resp = false;
+        if(existeProyecto(p.getNombre()) != null){
+            Jedis jedis = JedisUtil.getPool().getResource();
+            Gson gson = new Gson();
+            String project = gson.toJson(p);
+            jedis.watch("proyecto:"+p.getNombre());
+            Transaction t = jedis.multi();
+            Map<String, String> proyecto = new HashMap<>();
+            proyecto.put("nombre", p.getNombre());
+            proyecto.put("proyecto", project);
+            t.hmset("proyecto:"+p.getNombre(),proyecto);
+            t.exec();
+            jedis.close();
+            resp = true;
+        }
+        return resp;
+    }
+    
     public boolean delUsuario(String u) {
         boolean resp = false;
         Jedis jedis = JedisUtil.getPool().getResource();
@@ -148,4 +169,6 @@ public class IntelijavaServicesRedis implements Services{
             return null;
         }
     }
+
+    
 }
