@@ -96,7 +96,6 @@ public class IntelijavaServices implements Services{
     
     public String getDuennoProyecto(String p){
         Proyecto toReturn = existeProyecto(p);
-        //System.out.println(toReturn.getDuenno());
         if(toReturn == null)return null;
         return toReturn.getDuenno();
     }
@@ -116,7 +115,6 @@ public class IntelijavaServices implements Services{
     
     public String compilarProyecto(Proyecto p, String u) {
         if(projectsArray.contains(p) && (p.getColaboradores().contains(u) || p.getDuenno().equals(u))){
-            System.out.println("Proyecto válido");
             return p.compilar();
         }else{
             return "El proyecto no es válido";

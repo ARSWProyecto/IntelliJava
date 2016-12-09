@@ -245,7 +245,7 @@ public class Proyecto {
         InMemoryJavaCompiler jc = new InMemoryJavaCompiler(paquetes.get(0).getArchivos().get(0).getNombre(), paquetes.get(0).getArchivos().get(0).getTexto());
         String aRetornar = "";
         try {
-            System.out.println(paquetes.get(0).getArchivos().get(0).getNombre() + " " + paquetes.get(0).getArchivos().get(0).getTexto());
+            //System.out.println(paquetes.get(0).getArchivos().get(0).getNombre() + " " + paquetes.get(0).getArchivos().get(0).getTexto());
             jc.compile();
             aRetornar = jc.getResult();
             if(aRetornar.equals("")){

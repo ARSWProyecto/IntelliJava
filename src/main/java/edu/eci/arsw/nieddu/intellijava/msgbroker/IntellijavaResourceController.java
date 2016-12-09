@@ -49,7 +49,6 @@ public class IntellijavaResourceController {
     public ResponseEntity<?> compiladoDelProyecto(@PathVariable String nombreP, @PathVariable String nombreU) throws EntitiesException{
         Proyecto p = ins.existeProyecto(nombreP);
         String u = ins.existeUsuario(nombreU);
-        //System.out.println("Llegó a compilar: "+p+" "+u);
         if(p==null || u==null)return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else{
             String resp = ins.compilarProyecto(p, u);
@@ -93,7 +92,6 @@ public class IntellijavaResourceController {
                 ins.delProyecto(p);
                 realizado=true;
             }else{
-                System.out.println("Borrando "+u+" del proyecto "+p.getNombre());
                 p.delColaborador(u);
                 ins.delUsuario(u);
                 ins.updateProject(p);
