@@ -126,7 +126,7 @@ public class Proyecto {
         boolean find = false;
         if (u.equals(duenno) && colaboradores.size() > 0) {
             duenno=colaboradores.get(0);
-            //u.delegarProyecto(colaboradores.get(0));
+            colaboradores.remove(0);
         } else {
             for (int i = 0; i < colaboradores.size() && !find; i++) {
                 if (colaboradores.get(i).equals(u)) {
