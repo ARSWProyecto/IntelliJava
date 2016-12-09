@@ -56,7 +56,12 @@ public class IntellijavaResourceController {
             return new ResponseEntity<>(resp,HttpStatus.ACCEPTED);
         }
     }
-    
+    /**
+     * agregar un colaborador
+     * @param nombreP
+     * @param usuario
+     * @return 
+     */
     @RequestMapping(path = "/proyecto/{nombreP}/colaborador",method = RequestMethod.POST)
     public ResponseEntity<?> addColaborador(@PathVariable String nombreP, @RequestBody String usuario) {
         //registrar usuario
@@ -134,10 +139,10 @@ public class IntellijavaResourceController {
     
     @RequestMapping(path = "/proyecto/{nombreP}/duenno", method = RequestMethod.GET)
     public ResponseEntity<?> duennoProyecto(@PathVariable String nombreP){
-        String p = ins.getDuennoProyecto(nombreP);
-        if(p==null)return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        String duenno = ins.getDuennoProyecto(nombreP);
+        if(duenno==null)return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else{
-            return new ResponseEntity<>(p,HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(duenno,HttpStatus.ACCEPTED);
         }        
     }
     

@@ -97,6 +97,7 @@ public class IntelijavaServices {
     
     public String getDuennoProyecto(String p){
         Proyecto toReturn = existeProyecto(p);
+        //System.out.println(toReturn.getDuenno());
         if(toReturn == null)return null;
         return toReturn.getDuenno();
     }
