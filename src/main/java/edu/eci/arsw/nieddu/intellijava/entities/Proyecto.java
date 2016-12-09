@@ -246,6 +246,9 @@ public class Proyecto {
             System.out.println(paquetes.get(0).getArchivos().get(0).getNombre() + " " + paquetes.get(0).getArchivos().get(0).getTexto());
             jc.compile();
             aRetornar = jc.getResult();
+            if(aRetornar.equals("")){
+                aRetornar = "Compilación exitosa.";
+            }
             return aRetornar;
         } catch (ClassFormatError| ClassNotFoundException | URISyntaxException ex) {
             Logger.getLogger(Proyecto.class.getName()).log(Level.SEVERE, null, ex);

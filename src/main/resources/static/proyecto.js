@@ -9,10 +9,14 @@ function connect() {
         console.log('Connected: ' + frame);
 
         stompClient.subscribe('/topic/project.' + sessionStorage.nameProject, function (data) {
-            var obj = JSON.parse(data.body);
+            //var obj = JSON.parse(data.body);
             console.log(sessionStorage.name);
-            
-            if (obj.author != sessionStorage.name) {
+            console.log(data);
+            obj = data.body.split("AUTOR");
+            author = obj[1];
+            text = obj[0];
+            //if (obj.author != sessionStorage.name) {
+            if (author != sessionStorage.name) {
                 /*var patches = dmp.patch_fromText(obj.text);
                 text1 = $("#orig").val();
                 
@@ -22,7 +26,8 @@ function connect() {
                 $("#orig").val(results[0]);
                 editor.setValue(results[0], 1);*/
                 
-                editor.setValue(obj.text, 1);
+                //editor.setValue(obj.text, 1);
+                editor.setValue(text, 1);
                 editor.moveCursorTo(sessionStorage.cursor.row, sessionStorage.cursor.column-1);
             }
             /*else {
@@ -158,7 +163,12 @@ $(document).ready(
                 patch_text = dmp.patch_toText(patch_list);
                 stompClient.send("/topic/project." + sessionStorage.nameProject, {}, JSON.stringify({text: patch_text, author: sessionStorage.name}));*/
                 sessionStorage.cursor = editor.getCursorPosition();
-                stompClient.send("/app/project." + sessionStorage.nameProject, {}, JSON.stringify({text: editor.getValue(), author: sessionStorage.name}));
+                //alert(editor.getValue());
+                stompClient.send("/app/project." + sessionStorage.nameProject, {}, editor.getValue() +"AUTOR"+sessionStorage.name);
+            });
+            
+            $.get("intelijava/proyecto/"+sessionStorage.nameProject+"/paquete/0/archivo/0").then(function (data) {
+               editor.setValue(data, 1); 
             });
         }
 );

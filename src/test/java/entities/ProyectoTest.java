@@ -114,8 +114,9 @@ public class ProyectoTest {
             String aEscribir ="public clas Default{}";
             p.modificarArchivo(0, 0, aEscribir);
             String holi = p.compilar();
-            if(holi.startsWith(EntitiesException.ERROR_DE_COMPILACION)){
-                Assert.fail("Se esperaba excepcion");
+            System.out.println(holi);
+            if(holi.isEmpty()){
+                Assert.fail("Se esperaba error");
             }
         }catch(EntitiesException ex){
             //System.out.println(InMemoryJavaCompiler.RESULTADO);

@@ -30,9 +30,10 @@ public class STOMPMessagesHandler {
     IntelijavaServices ins;
 
     @MessageMapping("/project.{nameProject}")
-    public void updateProject(@DestinationVariable String nameProject, String text) throws Exception {
+    public void updateProject(@DestinationVariable String nameProject, String text, String author) throws Exception {
         Proyecto p = ins.existeProyecto(nameProject);
-        p.getPaquete(0).escribirEnArchivo(0, text);
+        String[] datos = text.split("AUTOR");
+        p.getPaquete(0).escribirEnArchivo(0, datos[0]);
         msgt.convertAndSend("/topic/project."+nameProject, text);
     }
 }
