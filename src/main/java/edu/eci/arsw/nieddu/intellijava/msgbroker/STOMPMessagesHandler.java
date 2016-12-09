@@ -33,6 +33,7 @@ public class STOMPMessagesHandler {
     public void updateProject(@DestinationVariable String nameProject, String text, String author) throws Exception {
         Proyecto p = ins.existeProyecto(nameProject);
         String[] datos = text.split("AUTOR");
+        System.out.println(text+ " dato[0]: "+datos[0]+" dato[1]: "+datos[1]);
         p.getPaquete(0).escribirEnArchivo(0, datos[0]);
         msgt.convertAndSend("/topic/project."+nameProject, text);
     }
