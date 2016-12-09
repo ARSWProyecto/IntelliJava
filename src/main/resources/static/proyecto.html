@@ -29,6 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <script src="/webjars/google-diff-match-patch/diff_match_patch.js"></script>
         <script src="/webjars/ace/ace/01.08.2014/src/ace.js"></script>
         <script src="/webjars/bootstrap/bootstrap.min.js"></script>
+        <script src="/webjars/jstree/jstree.min.js"></script>
+        <link rel="stylesheet" href="/webjars/jstree/themes/default/style.min.css" />
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
         <script src="/proyecto.js"></script>
     </head>
@@ -37,57 +39,57 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <body>
         <div class="modal fade animated bounceInLeft" id="agregarColaboradorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <button type="button" class="close cancel-new" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                  <h4 class="modal-title" id="myModalLabel"><i class="fa fa-calendar"></i> Agregar colaborador</h4>
-               </div>
-               <div class="modal-body">
-                     <label>Nombre:</label>
-                     <input class="form-control" type="text" name="nombre" id="Ncolaborador">
-               </div>
-               <div class="modal-footer">
-                  <button type="button" class="btn btn-success" data-dismiss="modal" onclick="enviarInvitacion()"><i class="fa fa-calendar-check-o"></i> Agregar</button>
-                  <button type="button" class="cancel-new btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
-               </div>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close cancel-new" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-calendar"></i> Agregar colaborador</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label>Nombre:</label>
+                        <input class="form-control" type="text" name="nombre" id="Ncolaborador">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="enviarInvitacion()"><i class="fa fa-calendar-check-o"></i> Agregar</button>
+                        <button type="button" class="cancel-new btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
+        </div>
         <div class="modal fade animated bounceInLeft" id="eliminarColaboradorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <button type="button" class="close cancel-new" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                  <h4 class="modal-title" id="myModalLabel"><i class="fa fa-calendar"></i> Eliminar colaborador</h4>
-               </div>
-               <div class="modal-body">
-                     <label>Nombre:</label>
-                     <input class="form-control" type="text" name="nombre" id="Bcolaborador">
-               </div>
-               <div class="modal-footer">
-                  <button type="button" class="btn btn-success" data-dismiss="modal" onclick="borrarColaborador()"><i class="fa fa-calendar-check-o"></i> Agregar</button>
-                  <button type="button" class="cancel-new btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
-               </div>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close cancel-new" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-calendar"></i> Eliminar colaborador</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label>Nombre:</label>
+                        <input class="form-control" type="text" name="nombre" id="Bcolaborador">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="borrarColaborador()"><i class="fa fa-calendar-check-o"></i> Agregar</button>
+                        <button type="button" class="cancel-new btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-        <div class="modal fade animated bounceInLeft" id="compiladorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <button type="button" class="close cancel-new" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                  <h4 class="modal-title" id="myModalLabel"><i class="fa fa-calendar"></i> Resultado de la compilación:</h4>
-               </div>
-               <div class="modal-body" id="resCompilacion">
-                    Procesando... Por favor espere.
-               </div>
-               <div class="modal-footer">
-                  <button type="button" class="cancel-new btn btn-danger" data-dismiss="modal" onclick="limpiarCompilacion()"><i class="fa fa-times"></i> Cerrar</button>
-               </div>
+        </div>
+        <div class="modal fade animated bounceInLeft" id="compiladorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-html="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close cancel-new" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-calendar"></i> Resultado de la compilación:</h4>
+                    </div>
+                    <div class="modal-body" id="resCompilacion" data-html="true">
+                        Procesando... Por favor espere.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="cancel-new btn btn-danger" data-dismiss="modal" onclick="limpiarCompilacion()"><i class="fa fa-times"></i> Cerrar</button>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
+        </div>
 
         <div id="guiaProyecto"></div>
 
@@ -139,8 +141,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </div><!--/.container-fluid -->
             </nav>
             <div class="content">
+
+                <h3>Proyecto</h3>
                 <div class="col-sm-2 sidenav">
-                    <h3>Proyecto</h3>
+                    <div id="tree">
+                        <ul>
+                            <li>Default package
+                                <ul>
+                                    <li>Main.java</li>
+                                </ul>
+                            </li>
+                        </ul></div>
                 </div>
                 <div class="col-sm-8 text-left align-center" >
                     <div class="row">
@@ -155,7 +166,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </div>
                 <div class="col-sm-2 sidenav">
                     <h3>Colaboradores</h3>
-                    
+
                 </div>
             </div>
         </div>
