@@ -96,6 +96,7 @@ public class IntellijavaResourceController {
                 System.out.println("Borrando "+u+" del proyecto "+p.getNombre());
                 p.delColaborador(u);
                 ins.delUsuario(u);
+                ins.updateProject(p);
                 realizado=true;
             }if(realizado){
                 return new ResponseEntity<>(HttpStatus.CREATED);  
