@@ -1,5 +1,6 @@
 package edu.eci.arsw.nieddu.intellijava.compiler;
 
+import java.io.BufferedWriter;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.ToolProvider;
@@ -8,6 +9,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * Created by trung on 5/3/15.
@@ -39,6 +41,12 @@ public class InMemoryJavaCompiler {
     }
     
     public String getResult(){
-        return resultado.toString();
+        Scanner scan = new Scanner(resultado.getBuffer().toString());
+        String m = "";
+        while (scan.hasNextLine() ){
+            m+=scan.nextLine()+"<br />";
+            System.out.println(m);
+        }
+        return m;
     }
 }
