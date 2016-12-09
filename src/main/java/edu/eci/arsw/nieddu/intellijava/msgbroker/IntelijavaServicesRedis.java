@@ -86,7 +86,7 @@ public class IntelijavaServicesRedis implements Services{
     }
     
     @Override
-    public Boolean updateTextProject(Proyecto p) {
+    public Boolean updateProject(Proyecto p) {
         boolean resp = false;
         if(existeProyecto(p.getNombre()) != null){
             Jedis jedis = JedisUtil.getPool().getResource();
@@ -163,7 +163,7 @@ public class IntelijavaServicesRedis implements Services{
     }
     
     public String compilarProyecto(Proyecto p, String u){
-        if(existeProyecto(p.getNombre()) != null && p.getColaboradores().contains(u)){
+        if(existeProyecto(p.getNombre()) != null && (p.getColaboradores().contains(u) || p.getDuenno().equals(u))){
             return p.compilar();
         }else {
             return null;

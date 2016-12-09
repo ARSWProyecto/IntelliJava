@@ -70,6 +70,7 @@ public class IntellijavaResourceController {
             String u = ins.existeUsuario(usuario);
             if(p!=null && u!=null){
                 p.addColaborador(u);
+                ins.updateProject(p);
                 //u.setProyectoActual(p);
                 return new ResponseEntity<>(HttpStatus.CREATED);  
             }else{

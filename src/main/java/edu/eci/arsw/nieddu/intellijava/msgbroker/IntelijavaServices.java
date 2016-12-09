@@ -124,7 +124,7 @@ public class IntelijavaServices implements Services{
     }
 
     @Override
-    public Boolean updateTextProject(Proyecto p) {
+    public Boolean updateProject(Proyecto p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

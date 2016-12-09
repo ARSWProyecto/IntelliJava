@@ -27,7 +27,7 @@ public interface Services {
     
     public Proyecto existeProyecto(String p);
     
-    public Boolean updateTextProject(Proyecto p);
+    public Boolean updateProject(Proyecto p);
     
     public boolean delUsuario(String u);
     
