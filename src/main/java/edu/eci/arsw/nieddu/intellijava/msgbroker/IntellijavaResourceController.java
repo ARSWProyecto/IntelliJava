@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class IntellijavaResourceController {
     
     @Autowired
-    IntelijavaServices ins;
+    IntelijavaServicesRedis ins;
     
     @Autowired
     SimpMessagingTemplate msgt;
