@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class IntellijavaResourceController {
     
     @Autowired
-    IntelijavaServicesRedis ins;
+    Services ins;
     
     @Autowired
     SimpMessagingTemplate msgt;
@@ -123,10 +123,11 @@ public class IntellijavaResourceController {
         }
     }
     
+    /*
     @RequestMapping(path="/colaborador", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorUsuario(){
         return new ResponseEntity<>(ins.usuarios(), HttpStatus.ACCEPTED);
-    }
+    }*/
     
     @RequestMapping(path = "/proyecto/{nombreP}/colaborador", method = RequestMethod.GET)
     public ResponseEntity<?> colaboradoresProyecto(@PathVariable String nombreP){

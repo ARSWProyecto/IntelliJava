@@ -19,7 +19,7 @@ import redis.clients.jedis.Jedis;
  * @author Nieddu
  */
 @Service
-public class IntelijavaServicesRedis {
+public class IntelijavaServicesRedis implements Services{
 
     //public static CopyOnWriteArrayList<String> usersArray;
     //public static CopyOnWriteArrayList<Proyecto> projectsArray;
@@ -97,8 +97,8 @@ public class IntelijavaServicesRedis {
     /*
     public List<String> usuarios() {
         return usersArray;
-    }
-    */
+    }*/
+    
     public List<String> colaboradores(String p) {
         Proyecto toReturn = existeProyecto(p);
         if (toReturn == null) {
@@ -130,7 +130,7 @@ public class IntelijavaServicesRedis {
         }
     }
     
-    public String compilarProyecto(Proyecto p, String u) throws EntitiesException {
+    public String compilarProyecto(Proyecto p, String u){
         if(existeProyecto(p.getNombre()) != null && p.getColaboradores().contains(u)){
             return p.compilar();
         }else {

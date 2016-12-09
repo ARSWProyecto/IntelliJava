@@ -17,12 +17,12 @@ import org.springframework.stereotype.Service;
  */
 
 //@Service
-public class IntelijavaServices {
+public class IntelijavaServices implements Services{
     
     public static CopyOnWriteArrayList<String> usersArray;
     public static CopyOnWriteArrayList<Proyecto> projectsArray;
     
-    public IntelijavaServices(){
+    public IntelijavaServices() {
         usersArray= new CopyOnWriteArrayList();
         projectsArray= new CopyOnWriteArrayList<>();
     }
