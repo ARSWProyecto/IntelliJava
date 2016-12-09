@@ -48,7 +48,8 @@ public class IntelijavaServicesRedis implements Services{
         System.out.println("Entro al existe usuario");
         Jedis jedis = JedisUtil.getPool().getResource();
         Map<String, String> usuario = jedis.hgetAll("nombre:" + nombre);
-        if (usuario.size()==0) {
+        System.out.println(usuario.size()+" "+usuario+" ");
+        if (!usuario.isEmpty()) {
             resp = nombre;
         }
         jedis.close();
