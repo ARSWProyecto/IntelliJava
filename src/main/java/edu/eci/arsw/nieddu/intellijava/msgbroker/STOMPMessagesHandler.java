@@ -7,7 +7,6 @@ package edu.eci.arsw.nieddu.intellijava.msgbroker;
 
 
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
-import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.springframework.beans.factory.annotation.Autowired;

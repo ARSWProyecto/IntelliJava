@@ -8,8 +8,12 @@ package edu.eci.arsw.nieddu.intellijava.msgbroker;
 import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 /**
  *
@@ -17,12 +21,12 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class IntelijavaServices {
+public class IntelijavaServicesRedis {
     
     public static CopyOnWriteArrayList<String> usersArray;
     public static CopyOnWriteArrayList<Proyecto> projectsArray;
     
-    public IntelijavaServices(){
+    public IntelijavaServicesRedis(){
         usersArray= new CopyOnWriteArrayList();
         projectsArray= new CopyOnWriteArrayList<>();
     }
@@ -35,13 +39,19 @@ public class IntelijavaServices {
         return resp;
     }
 
-    public String existeUsuario(String u) {
+    public String existeUsuario(String nombre) {
         String resp = null;
+        Jedis jedis = JedisUtil.getPool().getResource();
+        Map<String, String> usuario = jedis.hgetAll("nombre:"+nombre);
+        if(usuario!=null){            
+            resp = nombre;
+        }
+        /*
         for(int i = 0 ; i < usersArray.size() && resp==null; i++){
-            if(usersArray.get(i).equals(u)){
+            if(usersArray.get(i).getNombre().equals(u)){
                 resp = usersArray.get(i);
             }
-        }
+        }*/
         return resp;
     }
 

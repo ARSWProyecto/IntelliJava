@@ -5,10 +5,8 @@
  */
 package entities;
 
-import edu.eci.arsw.nieddu.intellijava.compiler.InMemoryJavaCompiler;
 import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
-import edu.eci.arsw.nieddu.intellijava.entities.Usuario;
 import org.junit.Assert;
 import org.junit.Test;
 /**
@@ -32,7 +30,7 @@ public class ProyectoTest {
     @Test
     public void deberiaTenerUnNombre(){
         try{
-            Usuario u = new Usuario("Poshito");
+            String u = "Poshito";
             Proyecto p = new Proyecto(null, u);
             Assert.fail("Permitio crear un proyecto sin nombre");
         } catch (EntitiesException ex) {
@@ -44,7 +42,7 @@ public class ProyectoTest {
     @Test
     public void deberiaTenerUnNombreDiferenteDeVacio(){
         try{
-            Usuario u = new Usuario("Poshito");
+            String u = "Poshito";
             Proyecto p = new Proyecto("", u);
             Assert.fail("Permitio crear un proyecto con nombre vacio");
         } catch (EntitiesException ex) {
@@ -56,7 +54,7 @@ public class ProyectoTest {
     @Test
     public void colaboradoresRegistrados(){
         try{
-            Usuario u = new Usuario("Poshito");
+            String u = "Poshito";
             Proyecto p = new Proyecto("El proyecto", u);
             p.addColaborador(null);
             Assert.fail("Permitio adicionar un colaborador vacio");
@@ -69,7 +67,7 @@ public class ProyectoTest {
     @Test
     public void cambioDeDuenno(){
         try{
-            Usuario u = new Usuario("Poshito");
+            String u = "Poshito";
             Proyecto p = new Proyecto("El proyecto", u);
             p.setDuenno(null);
             Assert.fail("Permitio adicionar un colaborador vacio");
@@ -82,7 +80,7 @@ public class ProyectoTest {
     @Test
     public void adicionarTarea(){
         try{
-            Usuario u = new Usuario("Poshito");
+            String u = "Poshito";
             Proyecto p = new Proyecto("El proyecto", u);
             p.addTarea(null);
             Assert.fail("Permitio adicionar una tarea vacia");
@@ -95,7 +93,7 @@ public class ProyectoTest {
     @Test
     public void deberiaCompilar(){
         try{
-            Usuario u = new Usuario("Poshito");
+            String u = "Poshito";
             Proyecto p = new Proyecto("El proyecto", u);
             String aEscribir ="public class Default{}";
             p.modificarArchivo(0, 0, aEscribir);
@@ -109,7 +107,7 @@ public class ProyectoTest {
     @Test
     public void noDeberiaCompilar(){
         try{
-            Usuario u = new Usuario("Poshito");
+            String u = "Poshito";
             Proyecto p = new Proyecto("El proyecto", u);
             String aEscribir ="public clas Default{}";
             p.modificarArchivo(0, 0, aEscribir);

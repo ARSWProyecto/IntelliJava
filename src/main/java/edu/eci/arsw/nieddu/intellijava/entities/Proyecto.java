@@ -20,13 +20,14 @@ public class Proyecto {
 
     private String nombre;
 
-    private Usuario duenno;
+    private String duenno;
 
-    private ArrayList<Usuario> colaboradores;
+    private ArrayList<String> colaboradores;
 
     private ArrayList<Tarea> tareas;
 
     private ArrayList<Paquete> paquetes;
+    
 
     /**
      * Creador de la clase
@@ -35,7 +36,7 @@ public class Proyecto {
      * @param duenno del proytecto
      * @throws EntitiesException si el nombre o dueño estan vacios
      */
-    public Proyecto(String nombre, Usuario duenno) throws EntitiesException {
+    public Proyecto(String nombre, String duenno) throws EntitiesException {
         if (nombre == null || nombre.isEmpty()) {
             throw new EntitiesException(EntitiesException.PROYECTO_SIN_NOMBRE);
         }
@@ -86,7 +87,7 @@ public class Proyecto {
      *
      * @return colaboradores
      */
-    public ArrayList<Usuario> getColaboradores() {
+    public ArrayList<String> getColaboradores() {
         return colaboradores;
     }
 
@@ -95,7 +96,7 @@ public class Proyecto {
      *
      * @param colaboradores
      */
-    public void setColaboradores(ArrayList<Usuario> colaboradores) {
+    public void setColaboradores(ArrayList<String> colaboradores) {
         this.colaboradores = colaboradores;
     }
 
@@ -105,7 +106,7 @@ public class Proyecto {
      * @param u nuevo colaborador
      * @throws EntitiesException si el colaborador a añadir es nulo
      */
-    public void addColaborador(Usuario u) throws EntitiesException {
+    public void addColaborador(String u) throws EntitiesException {
         if (u == null) {
             throw new EntitiesException(EntitiesException.PROYECTO_ADICION_USUARIOVACIO);
         }
@@ -118,16 +119,17 @@ public class Proyecto {
      * @param u colaborador a eliminar
      * @throws EntitiesException si el usuario no existe
      */
-    public void delColaborador(Usuario u) throws EntitiesException {
+    public void delColaborador(String u) throws EntitiesException {
         if (u == null) {
             throw new EntitiesException(EntitiesException.PROYECTO_ADICION_USUARIOVACIO);
         }
         boolean find = false;
-        if (u.esDuenno() && colaboradores.size() > 0) {
-            u.delegarProyecto(colaboradores.get(0));
+        if (u.equals(duenno) && colaboradores.size() > 0) {
+            duenno=colaboradores.get(0);
+            //u.delegarProyecto(colaboradores.get(0));
         } else {
             for (int i = 0; i < colaboradores.size() && !find; i++) {
-                if (colaboradores.get(i).getNombre().equals(u.getNombre())) {
+                if (colaboradores.get(i).equals(u)) {
                     find = true;
                     colaboradores.remove(i);
                 }
@@ -171,7 +173,7 @@ public class Proyecto {
      *
      * @return dueño del proyecto
      */
-    public Usuario getDuenno() {
+    public String getDuenno() {
         return duenno;
     }
 
@@ -181,7 +183,7 @@ public class Proyecto {
      * @param otherUser nuevo dueño
      * @throws EntitiesException si el usuario es nulo
      */
-    public void setDuenno(Usuario otherUser) throws EntitiesException {
+    public void setDuenno(String otherUser) throws EntitiesException {
         if (otherUser == null) {
             throw new EntitiesException(EntitiesException.PROYECTO_SIN_DUENNO);
         }
