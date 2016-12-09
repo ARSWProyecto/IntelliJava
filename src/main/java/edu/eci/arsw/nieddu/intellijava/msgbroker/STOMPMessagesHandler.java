@@ -7,8 +7,6 @@ package edu.eci.arsw.nieddu.intellijava.msgbroker;
 
 
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
-import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -26,7 +24,7 @@ public class STOMPMessagesHandler {
     SimpMessagingTemplate msgt;
     
     @Autowired
-    IntelijavaServices ins;
+    Services ins;
 
     @MessageMapping("/project.{nameProject}")
     public void updateProject(@DestinationVariable String nameProject, String text, String author) throws Exception {
