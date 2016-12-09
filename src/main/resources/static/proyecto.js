@@ -141,11 +141,16 @@ function limpiarCompilacion(){
     $("#resCompilacion").html("Procesando... Por favor espere.");
 }
 
+function crearArbol(){
+    $('#tree').jstree();
+}
+
 $(document).ready(
         function () {
             if(sessionStorage.name==null || sessionStorage.nameProject==null){
                 redireccionar();
             }
+            crearArbol();
             $("#titulo").html(sessionStorage.nameProject);
             $("#nombre_usuario").html("Hola, "+sessionStorage.name+" <span class='caret'></span>");
             //$("#colaboran").html(sessionStorage.)

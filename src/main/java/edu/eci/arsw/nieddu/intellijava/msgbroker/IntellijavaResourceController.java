@@ -156,7 +156,7 @@ public class IntellijavaResourceController {
         if(resp==null)return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
         else{
             return new ResponseEntity<>(resp,HttpStatus.ACCEPTED);
-        }        
+        }
     }
     
     @RequestMapping(path = "/proyecto/{nombreP}/duenno", method = RequestMethod.PUT)

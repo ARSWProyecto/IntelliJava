@@ -48,7 +48,7 @@ public class Proyecto {
         tareas = new ArrayList<>();
         paquetes = new ArrayList<>();
         Paquete defaultPackage = new Paquete("default");
-        Archivo defaultFile = new Archivo("Default", "");
+        Archivo defaultFile = new Archivo("Main", "");
         defaultPackage.addArchivo(defaultFile);
         paquetes.add(defaultPackage);
     }
