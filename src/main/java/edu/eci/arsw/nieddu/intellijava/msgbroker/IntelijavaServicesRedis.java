@@ -38,7 +38,7 @@ public class IntelijavaServicesRedis implements Services{
             jedis.hmset("usuario:" + u, usuario);
             System.out.println("agrego usuario");
         }
-        System.out.println("resp");
+        System.out.println(resp);
         jedis.close();
         return resp;
     }
@@ -48,8 +48,7 @@ public class IntelijavaServicesRedis implements Services{
         System.out.println("Entro al existe usuario");
         Jedis jedis = JedisUtil.getPool().getResource();
         Map<String, String> usuario = jedis.hgetAll("nombre:" + nombre);
-        System.out.println(usuario);
-        if (usuario != null) {
+        if (usuario.size()==0) {
             resp = nombre;
         }
         jedis.close();
@@ -76,7 +75,7 @@ public class IntelijavaServicesRedis implements Services{
         Proyecto resp = null;
         Jedis jedis = JedisUtil.getPool().getResource();
         Map<String, String> proyecto = jedis.hgetAll("nombre:"+p);
-        if(proyecto != null){
+        if(proyecto.size() == 0){
             Gson gson = new Gson();
             resp = gson.fromJson(jedis.hget("proyecto:"+p, "proyecto"), Proyecto.class);   
         }
