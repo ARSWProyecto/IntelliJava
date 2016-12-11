@@ -1,5 +1,5 @@
 var dmp = new diff_match_patch();
-
+movido = 0;
 function connect() {
     $("#connect").prop("disabled", true);
     $("#disconnect").prop("disabled", false);
@@ -9,35 +9,58 @@ function connect() {
         console.log('Connected: ' + frame);
 
         stompClient.subscribe('/topic/project.' + sessionStorage.nameProject, function (data) {
-            //var obj = JSON.parse(data.body);
-            console.log(sessionStorage.name);
-            console.log(data);
-            obj = data.body.split("AUTOR");
+            var obj = JSON.parse(data.body);
+            //console.log(sessionStorage.name);
+            //console.log(data);
+            /*obj = data.body.split("AUTOR");
             author = obj[1];
-            text = obj[0];
-            //if (obj.author != sessionStorage.name) {
-            if (author != sessionStorage.name) {
+            text = obj[0];*/
+            if (obj.author != sessionStorage.name) {
+            //if (author != sessionStorage.name) {
                 /*var patches = dmp.patch_fromText(obj.text);
                 text1 = $("#orig").val();
                 
                 //console.log(cursor);
                 var results = dmp.patch_apply(patches, text1);
-                console.log(patches);
+                //console.log(patches);
                 $("#orig").val(results[0]);
                 editor.setValue(results[0], 1);*/
                 
-                //editor.setValue(obj.text, 1);
-                editor.setValue(text, 1);
-                editor.moveCursorTo(sessionStorage.cursor.row, sessionStorage.cursor.column-1);
+                editor.setValue(obj.text, 1);
+                //editor.setValue(text, 1);
+                col = parseInt(obj.col);
+                row = parseInt(obj.row);
+                col_ant = parseInt(obj.col_ant);
+                row_ant = parseInt(obj.row_ant);
+                myRow = parseInt(sessionStorage.cursor_row);
+                myCol = parseInt(sessionStorage.cursor_col);
+                //console.log("myRow: "+myRow);
+                //console.log("myCol: "+myCol);
+                newCol = myCol;
+                newRow = myRow;
+                if(row==myRow){
+                    if(col<myCol){
+                        newCol++;
+                    }
+                }if(row<=myRow){
+                    //console.log("Sí "+row+"<="+myRow);
+                    if(row_ant!=row){
+                        newRow+=(row-row_ant);
+                    }
+                }
+                //console.log("Me tengo que mover a: "+newRow+", "+newCol);
+                editor.moveCursorTo(newRow, newCol);
+                sessionStorage.cursor_row = newRow;
+                sessionStorage.cursor_col = newCol;
             }
             /*else {
                 $("#orig").val(editor.getValue());
             }*/
         });
         stompClient.subscribe('/topic/waitingBan.' + sessionStorage.nameProject, function (data) {
-            console.log(data);
+            //console.log(data);
             var theObject = JSON.parse(data.body);
-            console.log(theObject);
+            //console.log(theObject);
             var nombre = sessionStorage.name;
             if (theObject.name == nombre){
                 alert("Has sido eliminado del proyecto");
@@ -55,7 +78,7 @@ function enviarInvitacion() {
             $("#Ncolaborador").val("");
             var miNombre = sessionStorage.name;
             var nombreProy = sessionStorage.nameProject;
-            console.log(miNombre + " " + nombreProy);
+            //console.log(miNombre + " " + nombreProy);
             stompClient.send("/topic/waiting." + nombreInvitado, {}, JSON.stringify({miNombre: miNombre, nombreProy: nombreProy}));
         } else {
             alert("No eres el dueño de este proyecto");
@@ -76,7 +99,7 @@ function borrarColaborador() {
                     url: "/intelijava/proyecto/" + nombreProy + "/" + nombreInvitado, // A valid URL
                     headers: {"X-HTTP-Method-Override": "DELETE", "Content-Type": "application/json"}
                 }).fail(function (response) {
-                    console.log(response);
+                    //console.log(response);
                     alert(response.responseText);
                 }).then(function(){
                     stompClient.send("/topic/waitingBan." + sessionStorage.nameProject, {}, JSON.stringify({name: nombreInvitado}));
@@ -97,7 +120,7 @@ function end() {
         url: "/intelijava/proyecto/" + nombreProy + "/" + usuario, // A valid URL
         headers: {"X-HTTP-Method-Override": "DELETE", "Content-Type": "application/json"}
     }).fail(function (response) {
-        console.log(response);
+        //console.log(response);
         alert(response.responseText);
     }).then(desconectar);
     /*
@@ -159,17 +182,21 @@ $(document).ready(
             editor.setFontSize(18);
             editor.getSession().setMode("ace/mode/java");
             editor.setTheme("ace/theme/monokai");
+            sessionStorage.cursor_row = editor.getCursorPosition().row;
+            sessionStorage.cursor_col = editor.getCursorPosition().column;
             $('#text').on('input selectionchange propertychange', function () {
-                /*text1 = $("#orig").val();
-                //text2 = $("#text2").val();
-                text2 = editor.getValue();
-                var diff = dmp.diff_main(text1, text2, true);
-                var patch_list = dmp.patch_make(text1, text2, diff);
-                patch_text = dmp.patch_toText(patch_list);
-                stompClient.send("/topic/project." + sessionStorage.nameProject, {}, JSON.stringify({text: patch_text, author: sessionStorage.name}));*/
-                sessionStorage.cursor = editor.getCursorPosition();
-                //alert(editor.getValue());
-                stompClient.send("/app/project." + sessionStorage.nameProject, {}, editor.getValue() +"AUTOR"+sessionStorage.name);
+            //editor.getSession().on('change',function(){
+                //stompClient.send("/topic/project." + sessionStorage.nameProject, {}, JSON.stringify({text: patch_text, author: sessionStorage.name}));*/
+                //stompClient.send("/app/project." + sessionStorage.nameProject, {}, editor.getValue() +"AUTOR"+sessionStorage.name);
+
+                stompClient.send("/app/project." + sessionStorage.nameProject, {}, JSON.stringify({text: editor.getValue(), author: sessionStorage.name, col: editor.getCursorPosition().column, row: editor.getCursorPosition().row, col_ant: sessionStorage.cursor_col, row_ant: sessionStorage.cursor_row}));
+                sessionStorage.cursor_row = editor.getCursorPosition().row;
+                sessionStorage.cursor_col = editor.getCursorPosition().column;
+            });
+            
+            $('#text').on('click', function () {
+                sessionStorage.cursor_row = editor.getCursorPosition().row;
+                sessionStorage.cursor_col = editor.getCursorPosition().column;
             });
             
             $.get("intelijava/proyecto/"+sessionStorage.nameProject+"/paquete/0/archivo/0").then(function (data) {
