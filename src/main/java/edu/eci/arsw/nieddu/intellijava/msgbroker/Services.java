@@ -5,10 +5,8 @@
  */
 package edu.eci.arsw.nieddu.intellijava.msgbroker;
 
-import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import org.springframework.stereotype.Service;
 
 /**

@@ -45,7 +45,6 @@ public class InMemoryJavaCompiler {
         String m = "";
         while (scan.hasNextLine() ){
             m+=scan.nextLine()+"<br />";
-            System.out.println(m);
         }
         return m;
     }

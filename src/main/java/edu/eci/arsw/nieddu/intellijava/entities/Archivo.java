@@ -40,7 +40,6 @@ public class Archivo {
      * @return texto del archivo
      */
     public String getTexto() {
-        System.out.println("Obteniendo texto: "+texto);
         return texto;
     }
 
@@ -50,7 +49,6 @@ public class Archivo {
      * @param texto del archivo
      */
     public void setTexto(String texto) {
-        System.out.println("Texto a actualizar: "+texto);
         this.texto = texto;
     }
 
