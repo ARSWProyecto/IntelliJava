@@ -188,7 +188,6 @@ $(document).ready(
             //editor.getSession().on('change',function(){
                 //stompClient.send("/topic/project." + sessionStorage.nameProject, {}, JSON.stringify({text: patch_text, author: sessionStorage.name}));*/
                 //stompClient.send("/app/project." + sessionStorage.nameProject, {}, editor.getValue() +"AUTOR"+sessionStorage.name);
-
                 stompClient.send("/app/project." + sessionStorage.nameProject, {}, JSON.stringify({text: editor.getValue(), author: sessionStorage.name, col: editor.getCursorPosition().column, row: editor.getCursorPosition().row, col_ant: sessionStorage.cursor_col, row_ant: sessionStorage.cursor_row}));
                 sessionStorage.cursor_row = editor.getCursorPosition().row;
                 sessionStorage.cursor_col = editor.getCursorPosition().column;
