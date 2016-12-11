@@ -184,7 +184,7 @@ $(document).ready(
             editor.setTheme("ace/theme/monokai");
             sessionStorage.cursor_row = editor.getCursorPosition().row;
             sessionStorage.cursor_col = editor.getCursorPosition().column;
-            $('.ace_text-input').on('keydown', function () {
+            $('.ace_text-input').on('input keypress keydown', function () {
             //editor.getSession().on('change',function(){
                 //stompClient.send("/topic/project." + sessionStorage.nameProject, {}, JSON.stringify({text: patch_text, author: sessionStorage.name}));*/
                 //stompClient.send("/app/project." + sessionStorage.nameProject, {}, editor.getValue() +"AUTOR"+sessionStorage.name);
