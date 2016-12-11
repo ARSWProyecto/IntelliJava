@@ -205,9 +205,9 @@ $(document).ready(
                 var patch_list = dmp.patch_make(text1, text2, diff);
                 patch_text = dmp.patch_toText(patch_list);
                 stompClient.send("/topic/project." + sessionStorage.nameProject, {}, JSON.stringify({text: patch_text, author: sessionStorage.name}));*/
-                sessionStorage.cursor = editor.getCursorPosition();
+                //sessionStorage.cursor = editor.getCursorPosition();
                 //alert(editor.getValue());
-                stompClient.send("/app/project." + sessionStorage.nameProject, {}, editor.getValue() +"AUTOR"+sessionStorage.name);
+                //stompClient.send("/app/project." + sessionStorage.nameProject, {}, editor.getValue() +"AUTOR"+sessionStorage.name);
             });
             
             $.get("intelijava/proyecto/"+sessionStorage.nameProject+"/paquete/0/archivo/0").then(function (data) {
