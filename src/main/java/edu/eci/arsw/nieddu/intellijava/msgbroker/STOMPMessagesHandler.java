@@ -38,7 +38,7 @@ public class STOMPMessagesHandler {
         Map<String,String> map = new HashMap<>();
         map = (Map<String,String>) gson.fromJson(text, map.getClass());
         p.getPaquete(0).escribirEnArchivo(0, map.get("text"));
-        System.out.println(map);
+        //System.out.println(map);
         ins.updateProject(p);
         msgt.convertAndSend("/topic/project."+nameProject, text);
     }
