@@ -197,6 +197,18 @@ $(document).ready(
             $('#text').on('click', function () {
                 sessionStorage.cursor_row = editor.getCursorPosition().row;
                 sessionStorage.cursor_col = editor.getCursorPosition().column;
+
+	    //editor.getSession().on('change', function(){
+                /*text1 = $("#orig").val();
+                //text2 = $("#text2").val();
+                text2 = editor.getValue();
+                var diff = dmp.diff_main(text1, text2, true);
+                var patch_list = dmp.patch_make(text1, text2, diff);
+                patch_text = dmp.patch_toText(patch_list);
+                stompClient.send("/topic/project." + sessionStorage.nameProject, {}, JSON.stringify({text: patch_text, author: sessionStorage.name}));*/
+                sessionStorage.cursor = editor.getCursorPosition();
+                //alert(editor.getValue());
+                stompClient.send("/app/project." + sessionStorage.nameProject, {}, editor.getValue() +"AUTOR"+sessionStorage.name);
             });
             
             $.get("intelijava/proyecto/"+sessionStorage.nameProject+"/paquete/0/archivo/0").then(function (data) {
