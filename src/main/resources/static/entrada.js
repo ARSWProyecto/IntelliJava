@@ -54,7 +54,7 @@ function redireccionar() {
 function guardarProyecto() {
     var Duenno = sessionStorage.name;
     var nombreProyecto = filterXSS($("#nombreProyecto").val());
-    //sessionStorage.nameProject = nombreProyecto;
+    sessionStorage.nameProject = nombreProyecto;
     $.ajax({
         type: 'POST', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
         url: "/intelijava/proyecto/" + nombreProyecto, // A valid URL
