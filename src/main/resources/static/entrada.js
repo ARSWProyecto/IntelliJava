@@ -53,7 +53,7 @@ function redireccionar() {
 
 function guardarProyecto() {
     var Duenno = sessionStorage.name;
-    var nombreProyecto = $("#nombreProyecto").val();
+    var nombreProyecto = filterXSS($("#nombreProyecto").val());
     //sessionStorage.nameProject = nombreProyecto;
     $.ajax({
         type: 'POST', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
@@ -74,7 +74,7 @@ function guardarProyecto() {
 }
 
 function refrescar() {
-    var nombreProyecto = $("#nombreProyecto").val();
+    var nombreProyecto = filterXSS($("#nombreProyecto").val());
     sessionStorage.nameProject = nombreProyecto;
     redireccionar();
 }

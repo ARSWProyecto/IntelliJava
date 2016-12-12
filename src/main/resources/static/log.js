@@ -1,6 +1,6 @@
 
 function guardarNombre(){
-    var nombre = $("#nombre").val();
+    var nombre = filterXSS($("#nombre").val());
     $.ajax({
         type: 'POST', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
         url: "/intelijava/colaborador/", // A valid URL
@@ -17,8 +17,7 @@ function redireccionar() {
 }
 
 function refrescar(){
-    console.log("entro");
-    var nombre = $("#nombre").val();
+    var nombre = filterXSS($("#nombre").val());
     sessionStorage.name = nombre;
         redireccionar();
 }
@@ -27,7 +26,6 @@ $(document).ready(
         function () {
             console.log(sessionStorage);
             if(sessionStorage.name!=null){
-                console.log("entro");
                 redireccionar();
             }
         }

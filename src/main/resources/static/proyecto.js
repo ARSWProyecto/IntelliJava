@@ -51,8 +51,8 @@ function connect() {
 function enviarInvitacion() {
     $.get("intelijava/proyecto/" + sessionStorage.nameProject + "/duenno").then(function (data) {
         if (data == sessionStorage.name) {
-            var nombreInvitado = $("#Ncolaborador").val();
-            $("#Ncolaborador").val("");
+            var nombreInvitado = filterXSS($("#Ncolaborador").val());
+            //$("#Ncolaborador").val("");
             var miNombre = sessionStorage.name;
             var nombreProy = sessionStorage.nameProject;
             console.log(miNombre + " " + nombreProy);
@@ -67,7 +67,7 @@ function enviarInvitacion() {
 function borrarColaborador() {
     $.get("intelijava/proyecto/" + sessionStorage.nameProject + "/duenno").then(function (data) {
         if (data == sessionStorage.name) {
-            var nombreInvitado = $("#Bcolaborador").val();
+            var nombreInvitado = filterXSS($("#Bcolaborador").val());
             if (nombreInvitado != sessionStorage.name) {
                 var nombreProy = sessionStorage.nameProject;
                 //$.post("/intelijava/proyecto/" + nombreProy + "/delcolaborador/", nombreInvitado, function () {});
