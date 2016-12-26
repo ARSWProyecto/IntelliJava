@@ -9,13 +9,14 @@ import edu.eci.arsw.nieddu.intellijava.entities.EntitiesException;
 import edu.eci.arsw.nieddu.intellijava.entities.Proyecto;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Nieddu
  */
 
-//@Service
+@Service
 public class IntelijavaServices implements Services{
     
     public static CopyOnWriteArrayList<String> usersArray;
@@ -123,6 +124,13 @@ public class IntelijavaServices implements Services{
 
     @Override
     public Boolean updateProject(Proyecto p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Boolean resp = false;
+        for(int i = 0 ; i < projectsArray.size() && !resp; i++){
+            if(projectsArray.get(i).getNombre().equals(p.getNombre())){    
+                projectsArray.set(i, p);
+                resp = true;
+            }
+        }
+        return resp;
     }
 }

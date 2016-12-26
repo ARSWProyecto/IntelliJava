@@ -19,7 +19,7 @@ import redis.clients.jedis.Transaction;
  *
  * @author Nieddu
  */
-@Service
+//@Service
 public class IntelijavaServicesRedis implements Services{
 
     //public static CopyOnWriteArrayList<String> usersArray;
